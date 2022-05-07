@@ -13,15 +13,31 @@ public class Cart {
         if (this.qtyOrdered == MAX_NUMBERS_ORDERED) {
             System.out.println("The cart is already full. No disc was added.%n");
         // If the item is not allowed to be duplicated
-        // } else if (this.itemsOrdered.contains(disc)) {
-        //     System.out.printf("'%s' is already in the cart.%n", disc.getTitle());
-        //     numberOfAddedDiscs = 0;
+        } else if (this.itemsOrdered.contains(disc)) {
+            System.out.printf("'%s' is already in the cart. No disc was added.%n", disc.getTitle());
         } else {
             this.itemsOrdered.add(disc);
             numberOfAddedDiscs = 1;
             this.qtyOrdered += numberOfAddedDiscs;
             System.out.printf("%d disc, '%s', has been added to the cart.%n", numberOfAddedDiscs, disc.getTitle());
         }
+        return numberOfAddedDiscs;
+    }
+
+    public int addDigitalVideoDisc(DigitalVideoDisc [] dvdList) {
+        int numberOfAddedDiscs = 0;
+        for (DigitalVideoDisc dvd : dvdList) {
+            if (this.qtyOrdered < MAX_NUMBERS_ORDERED) {
+                this.itemsOrdered.add(dvd);
+                numberOfAddedDiscs += 1;
+                this.qtyOrdered += 1;
+                System.out.printf("1 disc, '%s', has been added to the cart.%n", dvd.getTitle());
+            } else {
+                System.out.println("The cart is already full. No disc was added.");
+                break;
+            }
+        }
+        System.out.printf("In total, %d disc(s) have been added to the cart.%n", numberOfAddedDiscs);
         return numberOfAddedDiscs;
     }
 

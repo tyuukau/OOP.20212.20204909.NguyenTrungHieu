@@ -20,5 +20,10 @@ public class Aims {
         
         anOrder.removeDigitalVideoDisc(dvd3);
         System.out.println("Total Cost is: " + anOrder.totalCost());
+
+        DigitalVideoDisc dvd4 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
+        DigitalVideoDisc dvd5 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
+        DigitalVideoDisc[] dvdList = {dvd4, dvd5};
+        anOrder.addDigitalVideoDisc(dvdList);
     }
 }
