@@ -8,4 +8,16 @@ public class Cart {
 
     private int qtyOrdered = 0;
 
+    public void addDigitalVideoDisc(DigitalVideoDisc disc) {
+        if (this.qtyOrdered == MAX_NUMBERS_ORDERED) {
+            System.out.println("The cart is already full.");
+        } else if (this.itemsOrdered.contains(disc)) {
+            System.out.printf("'%s' is already in the cart.", disc.getTitle);
+        } else {
+            this.itemsOrdered.add(disc);
+            this.qtyOrdered += 1;
+            System.out.printf("One (1) disc, '%s' has been added to the cart.", disc.getTitle);
+        }
+    }
+
 }
