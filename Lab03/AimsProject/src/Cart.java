@@ -25,6 +25,21 @@ public class Cart {
         return numberOfAddedDiscs;
     }
 
-
+    public int removeDigitalVideoDisc(DigitalVideoDisc disc) {
+        int numberOfRemovedDiscs = 0;
+        for (DigitalVideoDisc discFromCart : this.itemsOrdered) {
+            if (disc.getTitle() == discFromCart.getTitle()) {
+                this.itemsOrdered.remove(disc);
+                numberOfRemovedDiscs = 1;
+                this.qtyOrdered -= numberOfRemovedDiscs;
+                System.out.printf("One (1) disc, '%s', has been removed the cart.", disc.getTitle());
+                break;
+            }
+        }
+        if (numberOfRemovedDiscs == 0) {
+            System.out.printf("The disc '%s' was not found in the cart.", disc.getTitle());
+        }
+        return numberOfRemovedDiscs;
+    }
     
 }
