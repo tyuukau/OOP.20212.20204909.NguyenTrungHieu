@@ -42,4 +42,11 @@ public class Cart {
         return numberOfRemovedDiscs;
     }
     
+    public float totalCost() {
+		float cost = 0.0f;
+		for (DigitalVideoDisc disc: itemsOrdered) {
+			cost += disc.getCost();
+		}
+		return cost;
+	}
 }
