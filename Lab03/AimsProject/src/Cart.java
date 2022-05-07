@@ -12,9 +12,11 @@ public class Cart {
         int numberOfAddedDiscs = 1;
         if (this.qtyOrdered == MAX_NUMBERS_ORDERED) {
             System.out.println("The cart is already full.");
+            numberOfAddedDiscs = 0;
         // If the item is not allowed to be duplicated
         // } else if (this.itemsOrdered.contains(disc)) {
         //     System.out.printf("'%s' is already in the cart.", disc.getTitle());
+        //     numberOfAddedDiscs = 0;
         } else {
             this.itemsOrdered.add(disc);
             this.qtyOrdered += numberOfAddedDiscs;
@@ -22,6 +24,7 @@ public class Cart {
         }
         return numberOfAddedDiscs;
     }
+
 
     
 }
