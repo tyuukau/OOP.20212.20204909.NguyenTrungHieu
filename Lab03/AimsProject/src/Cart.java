@@ -32,7 +32,7 @@ public class Cart {
                 this.itemsOrdered.remove(disc);
                 numberOfRemovedDiscs = 1;
                 this.qtyOrdered -= numberOfRemovedDiscs;
-                System.out.printf("%d (1) disc, '%s', has been removed the cart.%n", numberOfRemovedDiscs, disc.getTitle());
+                System.out.printf("%d disc, '%s', has been removed the cart.%n", numberOfRemovedDiscs, disc.getTitle());
                 break;
             }
         }
