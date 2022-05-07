@@ -11,12 +11,13 @@ public class Cart {
     public void addDigitalVideoDisc(DigitalVideoDisc disc) {
         if (this.qtyOrdered == MAX_NUMBERS_ORDERED) {
             System.out.println("The cart is already full.");
-        } else if (this.itemsOrdered.contains(disc)) {
-            System.out.printf("'%s' is already in the cart.", disc.getTitle);
+        // If the item is not allowed to be duplicated
+        // } else if (this.itemsOrdered.contains(disc)) {
+        //     System.out.printf("'%s' is already in the cart.", disc.getTitle());
         } else {
             this.itemsOrdered.add(disc);
             this.qtyOrdered += 1;
-            System.out.printf("One (1) disc, '%s' has been added to the cart.", disc.getTitle);
+            System.out.printf("One (1) disc, '%s', has been added to the cart.", disc.getTitle());
         }
     }
 
