@@ -20,7 +20,7 @@ public class Cart {
             this.itemsOrdered.add(disc);
             numberOfAddedDiscs = 1;
             this.qtyOrdered += numberOfAddedDiscs;
-            System.out.printf("One (1) disc, '%s', has been added to the cart.%n", disc.getTitle());
+            System.out.printf("%d disc, '%s', has been added to the cart.%n", numberOfAddedDiscs, disc.getTitle());
         }
         return numberOfAddedDiscs;
     }
@@ -32,7 +32,7 @@ public class Cart {
                 this.itemsOrdered.remove(disc);
                 numberOfRemovedDiscs = 1;
                 this.qtyOrdered -= numberOfRemovedDiscs;
-                System.out.printf("One (1) disc, '%s', has been removed the cart.%n", disc.getTitle());
+                System.out.printf("%d (1) disc, '%s', has been removed the cart.%n", numberOfRemovedDiscs, disc.getTitle());
                 break;
             }
         }
