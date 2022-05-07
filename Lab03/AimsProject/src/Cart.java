@@ -6,4 +6,6 @@ public class Cart {
 
     private ArrayList<DigitalVideoDisc> itemsOrdered = new ArrayList<DigitalVideoDisc>();
 
+    private int qtyOrdered = 0;
+
 }
