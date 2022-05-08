@@ -13,8 +13,8 @@ public class Cart {
         if (this.qtyOrdered == MAX_NUMBERS_ORDERED) {
             System.out.println("The cart is already full. No disc was added.%n");
         // If the item is not allowed to be duplicated
-        } else if (this.itemsOrdered.contains(disc)) {
-            System.out.printf("'%s' is already in the cart. No disc was added.%n", disc.getTitle());
+        // } else if (this.itemsOrdered.contains(disc)) {
+        //     System.out.printf("'%s' is already in the cart. No disc was added.%n", disc.getTitle());
         } else {
             this.itemsOrdered.add(disc);
             numberOfAddedDiscs = 1;
@@ -26,9 +26,9 @@ public class Cart {
 
     public int addDigitalVideoDisc(DigitalVideoDisc [] dvdList) {
         int numberOfAddedDiscs = 0;
-        for (DigitalVideoDisc dvd : dvdList) {
+        for (DigitalVideoDisc disc : dvdList) {
             if (this.qtyOrdered < MAX_NUMBERS_ORDERED) {
-                this.itemsOrdered.add(dvd);
+                this.itemsOrdered.add(disc);
                 numberOfAddedDiscs += 1;
                 this.qtyOrdered += 1;
                 System.out.printf("1 disc, '%s', has been added to the cart.%n", dvd.getTitle());
@@ -44,9 +44,9 @@ public class Cart {
     public int removeDigitalVideoDisc(DigitalVideoDisc disc) {
         int numberOfRemovedDiscs = 0;
         for (DigitalVideoDisc discFromCart : this.itemsOrdered) {
-            if (disc.getTitle() == discFromCart.getTitle()) {
-                this.itemsOrdered.remove(disc);
-                numberOfRemovedDiscs = 1;
+            if (discFromCart.getTitle() == disc.getTitle()) {
+                this.itemsOrdered.remove(discFromCart);
+                numberOfRemovedDiscs += 1;
                 this.qtyOrdered -= numberOfRemovedDiscs;
                 System.out.printf("%d disc, '%s', has been removed the cart.%n", numberOfRemovedDiscs, disc.getTitle());
                 break;
