@@ -1,0 +1,15 @@
+Question 01: When should accessor methods be used?
+
+Answer: See the figure (same folder).
+
+Question 02: If you create a constructor method to build a DVD by title then create a constructor method to build a DVD by category. Does JAVA allow you to do this?
+
+Short Answer: No
+
+Long Answer: It is not allowed because there's only one argument in both case. If there are, hypothetically, two constructors with the same number of arguments, when you create a new DVD object with only one argument passed, it is impossible for the system to know whether the argument is the title or the category. Therefore Java does not allow us to do so.
+
+Question 03: Try to add a method addDigitalVideoDisc which allows to pass an arbitrary number of arguments for dvd. Compared to an array parameter. What do you prefer in this case?
+
+Short answer: The method which allows an arbitrary number of arguments.
+
+Long answer: I prefer the one with an arbitrary number of arguments as it allows me to directly pass some DVDs as arguments, without first creating an array to actually use the method. It is thus more flexible, in my opinion.
