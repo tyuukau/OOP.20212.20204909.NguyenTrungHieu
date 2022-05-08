@@ -31,7 +31,7 @@ public class Cart {
                 this.itemsOrdered.add(disc);
                 numberOfAddedDiscs += 1;
                 this.qtyOrdered += 1;
-                System.out.printf("1 disc, '%s', has been added to the cart.%n", dvd.getTitle());
+                System.out.printf("1 disc, '%s', has been added to the cart.%n", disc.getTitle());
             } else {
                 System.out.println("The cart is already full. No disc was added.");
                 break;
@@ -48,19 +48,20 @@ public class Cart {
                 this.itemsOrdered.remove(discFromCart);
                 numberOfRemovedDiscs += 1;
                 this.qtyOrdered -= numberOfRemovedDiscs;
-                System.out.printf("%d disc, '%s', has been removed the cart.%n", numberOfRemovedDiscs, disc.getTitle());
+                System.out.printf("1 disc, '%s', has been removed the cart.%n", disc.getTitle());
                 break;
             }
         }
         if (numberOfRemovedDiscs == 0) {
             System.out.printf("The disc '%s' was not found in the cart.%n", disc.getTitle());
         }
+        System.out.printf("In total, %d disc(s) have been removed to the cart.%n", numberOfRemovedDiscs);
         return numberOfRemovedDiscs;
     }
     
     public float totalCost() {
 		float cost = 0.0f;
-		for (DigitalVideoDisc disc: itemsOrdered) {
+		for (DigitalVideoDisc disc : itemsOrdered) {
 			cost += disc.getCost();
 		}
 		return cost;
