@@ -26,7 +26,7 @@ public class Cart {
 
     public int addDigitalVideoDisc(DigitalVideoDisc [] dvdList) {
         int numberOfAddedDiscs = 0;
-        for (DigitalVideoDisc disc : dvdList) {
+        for (DigitalVideoDisc disc: dvdList) {
             if (this.qtyOrdered < MAX_NUMBERS_ORDERED) {
                 this.itemsOrdered.add(disc);
                 numberOfAddedDiscs += 1;
@@ -41,10 +41,28 @@ public class Cart {
         return numberOfAddedDiscs;
     }
 
+    //arbitrary number of objects
+    // public int addDigitalVideoDisc(DigitalVideoDisc... dvdList) {
+    //     int numberOfAddedDiscs = 0;
+    //     for (DigitalVideoDisc disc: dvdList) {
+    //         if (this.qtyOrdered < MAX_NUMBERS_ORDERED) {
+    //             this.itemsOrdered.add(disc);
+    //             numberOfAddedDiscs += 1;
+    //             this.qtyOrdered += 1;
+    //             System.out.printf("1 disc, '%s', has been added to the cart.%n", disc.getTitle());
+    //         } else {
+    //             System.out.println("The cart is already full. No disc was added.");
+    //             break;
+    //         }
+    //     }
+    //     System.out.printf("In total, %d disc(s) have been added to the cart.%n", numberOfAddedDiscs);
+    //     return numberOfAddedDiscs;
+    // }
+
     public int addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
         int numberOfAddedDiscs = 0;
         DigitalVideoDisc[] dvdList = {dvd1, dvd2};
-        for (DigitalVideoDisc disc : dvdList) {
+        for (DigitalVideoDisc disc: dvdList) {
             if (this.qtyOrdered < MAX_NUMBERS_ORDERED) {
                 this.itemsOrdered.add(disc);
                 numberOfAddedDiscs += 1;
@@ -79,7 +97,7 @@ public class Cart {
     
     public float totalCost() {
 		float cost = 0.0f;
-		for (DigitalVideoDisc disc : itemsOrdered) {
+		for (DigitalVideoDisc disc: itemsOrdered) {
 			cost += disc.getCost();
 		}
 		return cost;
