@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.chrono.ThaiBuddhistEra;
 
 public class DigitalVideoDisc {
     
@@ -98,6 +99,16 @@ public class DigitalVideoDisc {
         this.dateAdded = LocalDate.now();
 		this.id = nbDigitalVideoDiscs;
 		nbDigitalVideoDiscs += 1;
+    }
+
+
+    public String toString() {
+        return(String.format("DVD - [%s] - [%s] - [%s] - [%d]: %f$",
+                             this.getTitle(), 
+                             this.getCategory(), 
+                             this.getDirector(), 
+                             this.getLength(),
+                             this.getCost()));
     }
 
 }

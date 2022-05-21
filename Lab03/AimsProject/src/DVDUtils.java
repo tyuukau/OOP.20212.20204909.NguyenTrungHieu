@@ -12,22 +12,24 @@ public class DVDUtils {
         return disc1.getTitle().compareToIgnoreCase(disc2.getTitle());
     }
   
-    public static ArrayList<DigitalVideoDisc> sortByCost(DigitalVideoDisc ... discs) {
-        ArrayList<DigitalVideoDisc> digitalVideoDiscs = new ArrayList<DigitalVideoDisc>();
-        for (DigitalVideoDisc disc: discs) {
-            digitalVideoDiscs.add(disc);
-        }
-        Collections.sort(digitalVideoDiscs, DVDTitleComparator);
-        return digitalVideoDiscs;
-    }
-    
-    public static ArrayList<DigitalVideoDisc> sortByTitle(DigitalVideoDisc ... discs) {
+    public static DigitalVideoDisc[] sortByCost(DigitalVideoDisc ... discs) {
         ArrayList<DigitalVideoDisc> digitalVideoDiscs = new ArrayList<DigitalVideoDisc>();
         for (DigitalVideoDisc disc: discs) {
             digitalVideoDiscs.add(disc);
         }
         Collections.sort(digitalVideoDiscs, DVDCostComparator);
-        return digitalVideoDiscs;
+        DigitalVideoDisc[] result = digitalVideoDiscs.toArray(new DigitalVideoDisc[digitalVideoDiscs.size()]);
+        return result;
+    }
+    
+    public static DigitalVideoDisc[] sortByTitle(DigitalVideoDisc ... discs) {
+        ArrayList<DigitalVideoDisc> digitalVideoDiscs = new ArrayList<DigitalVideoDisc>();
+        for (DigitalVideoDisc disc: discs) {
+            digitalVideoDiscs.add(disc);
+        }
+        Collections.sort(digitalVideoDiscs, DVDTitleComparator);
+        DigitalVideoDisc[] result = digitalVideoDiscs.toArray(new DigitalVideoDisc[digitalVideoDiscs.size()]);
+        return result;
     }
 
     final static Comparator<DigitalVideoDisc> DVDTitleComparator = new Comparator<DigitalVideoDisc>() {
