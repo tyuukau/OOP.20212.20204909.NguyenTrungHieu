@@ -1,6 +1,4 @@
 import java.time.LocalDate;
-import java.time.chrono.ThaiBuddhistEra;
-
 public class DigitalVideoDisc {
     
     private String title;
