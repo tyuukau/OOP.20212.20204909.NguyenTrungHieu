@@ -1,4 +1,7 @@
+package hust.soict.dsai.aims.disc;
+
 import java.time.LocalDate;
+
 public class DigitalVideoDisc {
     
     private String title;

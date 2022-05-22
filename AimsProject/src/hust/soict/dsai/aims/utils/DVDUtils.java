@@ -1,3 +1,6 @@
+package hust.soict.dsai.aims.utils;
+
+import hust.soict.dsai.aims.disc.DigitalVideoDisc;
 import java.util.Comparator;
 import java.util.Arrays;
 
