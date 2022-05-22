@@ -1,6 +1,5 @@
 import java.util.Comparator;
-import java.util.Collections;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DVDUtils {
     
@@ -13,34 +12,41 @@ public class DVDUtils {
     }
   
     public static DigitalVideoDisc[] sortByCost(DigitalVideoDisc ... discs) {
-        ArrayList<DigitalVideoDisc> digitalVideoDiscs = new ArrayList<DigitalVideoDisc>();
-        for (DigitalVideoDisc disc: discs) {
-            digitalVideoDiscs.add(disc);
-        }
-        Collections.sort(digitalVideoDiscs, DVDCostComparator);
-        DigitalVideoDisc[] result = digitalVideoDiscs.toArray(new DigitalVideoDisc[digitalVideoDiscs.size()]);
-        return result;
+        Arrays.sort(discs, DVDCostComparator);
+        return discs;
     }
     
     public static DigitalVideoDisc[] sortByTitle(DigitalVideoDisc ... discs) {
-        ArrayList<DigitalVideoDisc> digitalVideoDiscs = new ArrayList<DigitalVideoDisc>();
-        for (DigitalVideoDisc disc: discs) {
-            digitalVideoDiscs.add(disc);
-        }
-        Collections.sort(digitalVideoDiscs, DVDTitleComparator);
-        DigitalVideoDisc[] result = digitalVideoDiscs.toArray(new DigitalVideoDisc[digitalVideoDiscs.size()]);
-        return result;
+        Arrays.sort(discs, DVDTitleComparator);
+        return discs;
     }
 
-    final static Comparator<DigitalVideoDisc> DVDTitleComparator = new Comparator<DigitalVideoDisc>() {
+    public final static Comparator<DigitalVideoDisc> DVDTitleComparator = new Comparator<DigitalVideoDisc>() {
         public int compare(DigitalVideoDisc disc1, DigitalVideoDisc disc2) {
             return disc1.getTitle().compareToIgnoreCase(disc2.getTitle());
         }
     };
 
-    final static Comparator<DigitalVideoDisc> DVDCostComparator = new Comparator<DigitalVideoDisc>() {
+    public final static Comparator<DigitalVideoDisc> DVDCostComparator = new Comparator<DigitalVideoDisc>() {
         public int compare(DigitalVideoDisc disc1, DigitalVideoDisc disc2) {
             return Float.compare(disc1.getCost(), disc2.getCost());
+        }
+    };
+
+    public final static Comparator<DigitalVideoDisc> DVDTitleCostLengthComparator = new Comparator<DigitalVideoDisc>() {
+        public int compare(DigitalVideoDisc disc1, DigitalVideoDisc disc2) {
+            int titleCondition = disc1.getTitle().compareToIgnoreCase(disc2.getTitle());
+            int costCondition = Float.compare(disc1.getCost(), disc2.getCost());
+            int lengthCondition = Integer.compare(disc1.getLength(), disc2.getLength());
+            if (titleCondition != 0) {
+                return titleCondition;
+            } else {
+                if (costCondition != 0) {
+                    return costCondition;
+                } else {
+                    return lengthCondition;
+                }
+            }
         }
     };
 }

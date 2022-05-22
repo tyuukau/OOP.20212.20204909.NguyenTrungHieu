@@ -101,7 +101,7 @@ public class DigitalVideoDisc {
 
 
     public String toString() {
-        return(String.format("DVD - [%s] - [%s] - [%s] - [%d]: %f$",
+        return(String.format("DVD - [%s] - [%s] - [%s] - [%d]: $%f",
                              this.getTitle(), 
                              this.getCategory(), 
                              this.getDirector(), 
