@@ -174,10 +174,8 @@ public class Cart {
 
 	public boolean searchByTitle(String title) {
 		boolean found = false;
-		int qty = 0;
-		float cost = 0f;
 		System.out.println("\n******************SEARCH RESULT********************");
-		System.out.println("Product ID: " + id);
+		System.out.println("Product Title: " + title);
         for (DigitalVideoDisc disc : this.itemsOrdered) {
             if (disc.isMatch(title)) {
                 System.out.println(disc.toString());
