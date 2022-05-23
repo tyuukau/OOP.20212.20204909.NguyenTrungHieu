@@ -112,4 +112,23 @@ public class DigitalVideoDisc {
                              this.getCost()));
     }
 
+    public boolean isMatch(String title) {
+        check = false;
+        String[] words = title.split("\\s+");
+        for (int i = 0; i < words.length; i++) {
+            // You may want to check for a non-word character before blindly
+            // performing a replacement
+            // It may also be necessary to adjust the character class
+            words[i] = words[i].toLowerCase().replaceAll("[^\\w]", "");
+        }
+        thisTitle = this.title.toLowerCase();
+        for (String word : words) {
+            if (thisTitle.contains(word)) {
+                check = true;
+                break;
+            }
+        }
+        return check;
+    }
+
 }

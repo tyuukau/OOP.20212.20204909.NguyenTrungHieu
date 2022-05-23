@@ -172,4 +172,27 @@ public class Cart {
 		System.out.println("\n");
     }
 
+	public boolean searchByTitle(String title) {
+		boolean found = false;
+		int qty = 0;
+		float cost = 0f;
+		System.out.println("\n******************SEARCH RESULT********************");
+		System.out.println("Product ID: " + id);
+        for (DigitalVideoDisc disc : this.itemsOrdered) {
+            if (disc.isMatch(title)) {
+                System.out.println(disc.toString());
+                found = true;
+            }
+        }
+		if  (!found) {
+			System.out.println("No such product was found.");
+			System.out.println("***************************************************");
+			System.out.println("\n");
+            return false;
+		} else {
+            System.out.println("***************************************************");
+			return true;
+		}
+	}
+
 }
