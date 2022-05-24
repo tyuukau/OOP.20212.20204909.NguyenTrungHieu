@@ -33,9 +33,9 @@ public class Store {
 		System.out.println("\n");
 	}
 	
-	public ArrayList<DigitalVideoDisc> getItemsInStore() {
-		return this.itemsInStore;
-	}
+	// public ArrayList<DigitalVideoDisc> getItemsInStore() {
+	// 	return this.itemsInStore;
+	// }
 
 	public DigitalVideoDisc searchDVD(String title) {
 		for (DigitalVideoDisc medium : this.itemsInStore) {
