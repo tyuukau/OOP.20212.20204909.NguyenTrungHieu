@@ -175,7 +175,7 @@ public class Aims {
                 placeOrder();
                 break;            
             case 0:
-                showMenu();;
+                showMenu();
                 break;
         }
 
