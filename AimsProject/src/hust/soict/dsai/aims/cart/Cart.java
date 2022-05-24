@@ -13,7 +13,7 @@ public class Cart {
 
     private int qtyOrdered = 0;
 
-    public int addDigitalVideoDisc(DigitalVideoDisc disc) {
+    public int addDVD(DigitalVideoDisc disc) {
         int numberOfAddedDiscs = 0;
         if (this.qtyOrdered == MAX_NUMBERS_ORDERED) {
             System.out.println("The cart is already full. No disc was added.%n");
@@ -29,7 +29,7 @@ public class Cart {
         return numberOfAddedDiscs;
     }
 
-    public int addDigitalVideoDisc(DigitalVideoDisc [] dvdList) {
+    public int addDVD(DigitalVideoDisc [] dvdList) {
         int numberOfAddedDiscs = 0;
         for (DigitalVideoDisc disc: dvdList) {
             if (this.qtyOrdered < MAX_NUMBERS_ORDERED) {
@@ -64,7 +64,7 @@ public class Cart {
     //     return numberOfAddedDiscs;
     // }
 
-    public int addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+    public int addDVD(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
         int numberOfAddedDiscs = 0;
         DigitalVideoDisc[] dvdList = {dvd1, dvd2};
         for (DigitalVideoDisc disc: dvdList) {
@@ -82,7 +82,7 @@ public class Cart {
         return numberOfAddedDiscs;
     }
 
-    public int removeDigitalVideoDisc(DigitalVideoDisc disc) {
+    public int removeDVD(DigitalVideoDisc disc) {
         int numberOfRemovedDiscs = 0;
         for (DigitalVideoDisc discFromCart : this.itemsOrdered) {
             if (discFromCart.getTitle() == disc.getTitle()) {
