@@ -37,5 +37,13 @@ public class Store {
 		return this.itemsInStore;
 	}
 
+	public DigitalVideoDisc searchDVD(String title) {
+		for (DigitalVideoDisc medium : this.itemsInStore) {
+			if (medium.getTitle().toLowerCase().equals(title.toLowerCase())) {
+				return medium;
+			}
+		}
+		return null;
+	}
 
 }

@@ -99,6 +99,15 @@ public class Cart {
         System.out.printf("In total, %d disc(s) have been removed to the cart.%n", numberOfRemovedDiscs);
         return numberOfRemovedDiscs;
     }
+
+	public DigitalVideoDisc searchDVD(String title) {
+		for (DigitalVideoDisc medium : this.itemsOrdered) {
+			if (medium.isMatch(title)) {
+				return medium;
+			}
+		}
+		return null;
+	}
     
     public float totalCost() {
 		float cost = 0.0f;
@@ -190,6 +199,66 @@ public class Cart {
 		} else {
             System.out.println("***************************************************");
 			return true;
+		}
+	}
+
+    public int getSize() {
+        return this.itemsOrdered.size();
+    }
+
+    public boolean filterCart(int id) {
+		boolean found = false;
+		int qty = 0;
+		float cost = 0f;
+		System.out.println("\n******************SEARCH RESULT********************");
+		System.out.println("Product ID: " + id);
+		for (int i = 0; i < this.itemsOrdered.size(); i++) {
+			if (this.itemsOrdered.get(i).getID() == id) {
+				System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString() + "\n");
+				qty += 1;
+				cost = this.itemsOrdered.get(i).getCost();
+				found = true;
+			}
+		}
+		if (found) {
+			System.out.println("Total number of product " + id + " found: " + qty);
+			System.out.println("Total cost for these product: " + "$" + (cost*qty));
+			System.out.println("***************************************************");
+			System.out.println("\n");
+			return true;
+		} else {
+			System.out.println("Such product is not in the cart");
+			System.out.println("***************************************************");
+			System.out.println("\n");
+			return false;
+		}
+	}
+	
+	public boolean filterCart(String title) {
+		boolean found = false;
+		int qty = 0;
+		float cost = 0f;
+		System.out.println("\n******************SEARCH RESULT********************");
+		System.out.println("Product title: " + title);
+		for (int i = 0; i < this.itemsOrdered.size(); i++) {
+			if (this.itemsOrdered.get(i).isMatch(title)) {
+				System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString() + "\n");
+				qty += 1;
+				cost = this.itemsOrdered.get(i).getCost();
+				found = true;
+			}
+		}
+		if (found) {
+			System.out.println("Total number of product " + title + " found: " + qty);
+			System.out.println("Total cost for these product: " + "$" + (cost*qty));
+			System.out.println("***************************************************");
+			System.out.println("\n");
+			return true;
+		} else {
+			System.out.println("Such product is not in the cart");
+			System.out.println("***************************************************");
+			System.out.println("\n");
+			return false;
 		}
 	}
 
