@@ -4,6 +4,7 @@ import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.disc.DigitalVideoDisc;
 import hust.soict.dsai.aims.store.Store;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -15,29 +16,36 @@ public class Aims {
 
     public static void main(String[] args) {
 
-        //Create a new cart
-        Cart anOrder = new Cart();
+        // //Create a new cart
+        // Cart anOrder = new Cart();
 
-        //Create new DVD objects and add them to the cart
+        // //Create new DVD objects and add them to the cart
+        // DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
+        // anOrder.addDVD(dvd1);
+
+        // DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
+        // anOrder.addDVD(dvd2);
+        
+        // DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
+        // anOrder.addDVD(dvd3);
+
+        // //Print total cost of the items in the cart
+        // System.out.println("Total Cost is: " + anOrder.totalCost());
+        
+        // anOrder.removeDVD(dvd3);
+        // System.out.println("Total Cost is: " + anOrder.totalCost());
+
+        // DigitalVideoDisc dvd4 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
+        // DigitalVideoDisc dvd5 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
+        // DigitalVideoDisc[] dvdList = {dvd4, dvd5};
+        // anOrder.addDVD(dvdList);
+
         DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-        anOrder.addDVD(dvd1);
-
-        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
-        anOrder.addDVD(dvd2);
-        
-        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
-        anOrder.addDVD(dvd3);
-
-        //Print total cost of the items in the cart
-        System.out.println("Total Cost is: " + anOrder.totalCost());
-        
-        anOrder.removeDVD(dvd3);
-        System.out.println("Total Cost is: " + anOrder.totalCost());
-
-        DigitalVideoDisc dvd4 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-        DigitalVideoDisc dvd5 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
-        DigitalVideoDisc[] dvdList = {dvd4, dvd5};
-        anOrder.addDVD(dvdList);
+		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
+		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
+		store.addDVD(dvd1);
+		store.addDVD(dvd2);
+		store.addDVD(dvd3);
 
         //Start program
         showMenu();
@@ -54,13 +62,7 @@ public class Aims {
                          + "--------------------------------\n"
                          + "Please choose a number: 0-1-2-3");
 				
-		int choice = scanner.nextInt();
-		scanner.nextLine();
-		while (choice != 0 && choice != 1 && choice != 2 && choice != 3 && choice != 4) {
-			System.out.println("Please choose a valid number.");
-			choice = scanner.nextInt();
-			scanner.nextLine();
-		}
+		int choice = getChoice(3);
 
         switch (choice) {
             case 1:
@@ -91,13 +93,7 @@ public class Aims {
                          + "0. Back\n"+ "--------------------------------\n"
                          + "Please choose a number: 0-1-2-3");
 		
-		int choice = scanner.nextInt();
-		scanner.nextLine();
-		while (choice != 0 && choice != 1 && choice != 2 && choice != 3) {
-			System.out.println("Please choose a valid number.");
-			choice = scanner.nextInt();
-			scanner.nextLine();
-		}
+		int choice = getChoice(3);
 
         switch (choice) {
             case 1:
@@ -127,21 +123,15 @@ public class Aims {
     }
 
     public static void updateStoreMenu() {
-        System.out.println("Options: ");
-		System.out.println("--------------------------------");
-		System.out.println("1. Add media to the store"); //addToStoreMenu()
-		System.out.println("2. Remove media from the store"); //removeFromStoreMenu()
-		System.out.println("0. Exit");
-		System.out.println("--------------------------------");
-		System.out.println("Please choose a number: 0-1-2");
+        System.out.println("Options: \n"
+		                 + "--------------------------------\n"
+		                 + "1. Add media to the store\n" //addToStoreMenu()
+		                 + "2. Remove media from the store\n" //removeFromStoreMenu()
+		                 + "0. Exit\n"
+                         + "--------------------------------\n"
+                         + "Please choose a number: 0-1-2\n");
 		
-		int choice = scanner.nextInt();
-		scanner.nextLine();
-		while (choice != 0 && choice != 1 && choice != 2) {
-			System.out.println("Please choose a valid number.");
-			choice = scanner.nextInt();
-			scanner.nextLine();
-		}
+        int choice = getChoice(2);
 
         switch (choice) {
             case 1:
@@ -169,13 +159,7 @@ public class Aims {
                          + "--------------------------------\n"
                          + "Please choose a number: 0-1-2-3-4");
 		
-		int choice = scanner.nextInt();
-		scanner.nextLine();
-		while (choice != 0 && choice != 1 && choice != 2 && choice != 3 && choice != 4) {
-			System.out.println("Please choose a valid number.");
-			choice = scanner.nextInt();
-			scanner.nextLine();
-		}
+        int choice = getChoice(4);
 
         switch (choice) {
             case 1:
@@ -207,13 +191,7 @@ public class Aims {
                          + "--------------------------------\n"
                          + "Please choose a number: 0-1");
 
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-        while (choice != 0 && choice != 1) {
-            System.out.println("Please enter a valid number.");
-            choice = scanner.nextInt();
-            scanner.nextLine();
-        }
+        int choice = getChoice(1);
 
         if (choice == 1) {
             cart.addDVD(disc);
@@ -252,13 +230,7 @@ public class Aims {
                          + "--------------------------------\n"
                          + "Please choose a number: 0-1");
 
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-        while (choice != 0 && choice != 1) {
-            System.out.println("Please choose a valid number.");
-            choice = scanner.nextInt();
-            scanner.nextLine();
-        }
+        int choice = getChoice(1);
 
         switch (choice) {
             case 1:
@@ -315,13 +287,8 @@ public class Aims {
                          + "--------------------------------\n"
                          + "Please choose a number: 0-1-2");
 		
-		int choice = scanner.nextInt();
-		scanner.nextLine();
-		while (choice != 0 && choice != 1 && choice != 2) {
-			System.out.println("Please choose a valid number.");
-			choice = scanner.nextInt();
-			scanner.nextLine();
-		}
+        int choice = getChoice(2);
+
 		
 		switch (choice) {
             case 1:
@@ -350,21 +317,15 @@ public class Aims {
     }
 
     public static void sortCartMenu() {
-		System.out.println("Options: " 
-                         + "--------------------------------"
-                         + "1. Sort by title"
-                         + "2. Sort by cost"
-                         + "0. Back"
-                         + "--------------------------------"
-                         + "Please choose a number: 0-1-2");
+		System.out.println("Options: \n" 
+                         + "--------------------------------\n"
+                         + "1. Sort by title\n"
+                         + "2. Sort by cost\n"
+                         + "0. Back\n"
+                         + "--------------------------------\n"
+                         + "Please choose a number: 0-1-2\n");
 		
-		int choice = scanner.nextInt();
-		scanner.nextLine();
-		while (choice != 0 && choice != 1 && choice != 2) {
-			System.out.println("Please choose a valid number.");
-			choice = scanner.nextInt();
-			scanner.nextLine();
-		}
+        int choice = getChoice(2);
 
         switch (choice) {
             case 1:
@@ -417,6 +378,21 @@ public class Aims {
             System.out.println("Your order has been placed\n");
             showMenu();
         }
+    }
+
+    private static int getChoice(int max) {
+        Integer input = scanner.nextInt();
+		scanner.nextLine();
+        ArrayList<Integer> choices = new ArrayList<Integer>();
+        for (int i = 0; i < (max + 1); i++) {
+            choices.add(Integer.valueOf(i));
+        }
+		while (!choices.contains(input)) {
+			System.out.println("Please choose a valid number.");
+			input = scanner.nextInt();
+			scanner.nextLine();
+		}
+        return input;
     }
 
 }

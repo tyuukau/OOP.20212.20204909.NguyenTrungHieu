@@ -17,7 +17,7 @@ public class CartTest {
         DigitalVideoDisc dvd6 = new DigitalVideoDisc("Harry Potter", "Fantasy", 32.99f);
         DigitalVideoDisc[] dvdList = {dvd1, dvd2, dvd3, dvd4, dvd5, dvd6};
 
-        cart.addDigitalVideoDisc(dvdList);
+        cart.addDVD(dvdList);
 
         //Test the searchByID method
         cart.searchByID(1);

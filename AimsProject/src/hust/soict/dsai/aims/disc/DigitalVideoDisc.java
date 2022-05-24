@@ -1,6 +1,7 @@
 package hust.soict.dsai.aims.disc;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 
 public class DigitalVideoDisc {
     
@@ -12,6 +13,18 @@ public class DigitalVideoDisc {
     private LocalDate dateAdded;
 	private int id;
 	private static int nbDigitalVideoDiscs = 0;
+
+    public final static Comparator<DigitalVideoDisc> COMPARE_BY_TITLE = new Comparator<DigitalVideoDisc>() {
+        public int compare(DigitalVideoDisc disc1, DigitalVideoDisc disc2) {
+            return disc1.getTitle().compareToIgnoreCase(disc2.getTitle());
+        }
+    };
+
+    public final static Comparator<DigitalVideoDisc> COMPARE_BY_COST = new Comparator<DigitalVideoDisc>() {
+        public int compare(DigitalVideoDisc disc1, DigitalVideoDisc disc2) {
+            return Float.compare(disc1.getCost(), disc2.getCost());
+        }
+    };
 
     /**
      * @return String return the title

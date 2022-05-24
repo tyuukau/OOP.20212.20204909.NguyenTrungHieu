@@ -1,7 +1,7 @@
 package hust.soict.dsai.aims.cart;
 
 import hust.soict.dsai.aims.disc.DigitalVideoDisc;
-import hust.soict.dsai.aims.utils.DVDUtils;
+import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -108,14 +108,6 @@ public class Cart {
 		}
 		return null;
 	}
-    
-    public float totalCost() {
-		float cost = 0.0f;
-		for (DigitalVideoDisc disc: itemsOrdered) {
-			cost += disc.getCost();
-		}
-		return cost;
-	}
 
 	public boolean searchByID(int id) {
 		boolean found = false;
@@ -145,42 +137,6 @@ public class Cart {
 		}
 	}
 
-    public void sortByTitle() {
-        Collections.sort(this.itemsOrdered, DVDUtils.DVDTitleComparator);
-		System.out.println("\n***********************CART***********************");
-		System.out.println("Ordered Items  (Sorted by Title):");
-		for (int i = 0; i < this.itemsOrdered.size(); i++) {
-			System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString());
-		}
-		System.out.println("Total cost: " + "$" + this.totalCost());
-		System.out.println("***************************************************");
-		System.out.println("\n");
-    }
-
-    public void sortByCost() {
-        Collections.sort(this.itemsOrdered, DVDUtils.DVDCostComparator);
-		System.out.println("\n***********************CART***********************");
-		System.out.println("Ordered Items  (Sorted by Cost):");
-		for (int i = 0; i < this.itemsOrdered.size(); i++) {
-			System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString());
-		}
-		System.out.println("Total cost: " + "$" + this.totalCost());
-		System.out.println("***************************************************");
-		System.out.println("\n");
-    }
-
-    public void print() {
-        Collections.sort(this.itemsOrdered, DVDUtils.DVDTitleCostLengthComparator);
-		System.out.println("\n***********************CART***********************");
-		System.out.println("Ordered Items:");
-		for (int i = 0; i < this.itemsOrdered.size(); i++) {
-			System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString());
-		}
-		System.out.println("Total cost: " + "$" + this.totalCost());
-		System.out.println("***************************************************");
-		System.out.println("\n");
-    }
-
 	public boolean searchByTitle(String title) {
 		boolean found = false;
 		System.out.println("\n******************SEARCH RESULT********************");
@@ -202,8 +158,28 @@ public class Cart {
 		}
 	}
 
-    public int getSize() {
-        return this.itemsOrdered.size();
+    public void sortByTitle() {
+        Collections.sort(this.itemsOrdered, DigitalVideoDisc.COMPARE_BY_TITLE);
+		System.out.println("\n***********************CART***********************");
+		System.out.println("Ordered Items  (Sorted by Title):");
+		for (int i = 0; i < this.itemsOrdered.size(); i++) {
+			System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString());
+		}
+		System.out.println("Total cost: " + "$" + this.totalCost());
+		System.out.println("***************************************************");
+		System.out.println("\n");
+    }
+
+    public void sortByCost() {
+        Collections.sort(this.itemsOrdered, DigitalVideoDisc.COMPARE_BY_COST);
+		System.out.println("\n***********************CART***********************");
+		System.out.println("Ordered Items  (Sorted by Cost):");
+		for (int i = 0; i < this.itemsOrdered.size(); i++) {
+			System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString());
+		}
+		System.out.println("Total cost: " + "$" + this.totalCost());
+		System.out.println("***************************************************");
+		System.out.println("\n");
     }
 
     public boolean filterCart(int id) {
@@ -261,5 +237,46 @@ public class Cart {
 			return false;
 		}
 	}
+
+    public float totalCost() {
+		float cost = 0.0f;
+		for (DigitalVideoDisc disc: itemsOrdered) {
+			cost += disc.getCost();
+		}
+		return cost;
+	}
+
+    public int getSize() {
+        return this.itemsOrdered.size();
+    }
+
+    public void print() {
+	    final Comparator<DigitalVideoDisc> COMPARE_BY_TITLE_COST_LENGTH = new Comparator<DigitalVideoDisc>() {
+			public int compare(DigitalVideoDisc disc1, DigitalVideoDisc disc2) {
+				int titleCondition = disc1.getTitle().compareToIgnoreCase(disc2.getTitle());
+				int costCondition = Float.compare(disc1.getCost(), disc2.getCost());
+				int lengthCondition = Integer.compare(disc1.getLength(), disc2.getLength());
+				if (titleCondition != 0) {
+					return titleCondition;
+				} else {
+					if (costCondition != 0) {
+						return costCondition;
+					} else {
+						return lengthCondition;
+					}
+				}
+			}
+		};
+
+        Collections.sort(this.itemsOrdered, COMPARE_BY_TITLE_COST_LENGTH);
+		System.out.println("\n***********************CART***********************");
+		System.out.println("Ordered Items:");
+		for (int i = 0; i < this.itemsOrdered.size(); i++) {
+			System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString());
+		}
+		System.out.println("Total cost: " + "$" + this.totalCost());
+		System.out.println("***************************************************");
+		System.out.println("\n");
+    }
 
 }
