@@ -1,3 +1,5 @@
+package hust.soict.dsai.lab01.Exercise64.src;
+
 import java.util.*;
 // Exercise 6.4
 public class NumberOfDays {

@@ -1,3 +1,5 @@
+package hust.soict.dsai.lab01.TheVeryFirstJavaPrograms;
+
 import javax.swing.JOptionPane;
 import java.lang.Math;
 // Exercise 2.2.6

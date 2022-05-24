@@ -1,3 +1,5 @@
+package hust.soict.dsai.lab01.TheVeryFirstJavaPrograms;
+
 import javax.swing.JOptionPane;
 public class ShowTwoNumbers {
     public static void main(String[] args) {

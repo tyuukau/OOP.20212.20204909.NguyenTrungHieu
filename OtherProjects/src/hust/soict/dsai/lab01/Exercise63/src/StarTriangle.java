@@ -1,3 +1,5 @@
+package hust.soict.dsai.lab01.Exercise63.src;
+
 import java.util.Scanner;
 // Exercise 6.3
 public class StarTriangle {

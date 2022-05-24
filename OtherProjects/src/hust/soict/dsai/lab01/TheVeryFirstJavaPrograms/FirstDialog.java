@@ -1,3 +1,5 @@
+package hust.soict.dsai.lab01.TheVeryFirstJavaPrograms;
+
 import javax.swing.JOptionPane;
 // Exercise 2.2.2
 public class FirstDialog{

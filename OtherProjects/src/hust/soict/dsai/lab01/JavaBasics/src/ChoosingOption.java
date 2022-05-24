@@ -1,3 +1,5 @@
+package hust.soict.dsai.lab01.JavaBasics.src;
+
 import javax.swing.JOptionPane;
 // Exercise 6.1
 public class ChoosingOption {

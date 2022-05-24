@@ -1,3 +1,5 @@
+package hust.soict.dsai.lab01.Exercise65.src;
+
 import java.util.*;
 // Exercise 6.5
 public class NumericArray {

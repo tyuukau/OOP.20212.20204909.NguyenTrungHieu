@@ -1,3 +1,5 @@
+package hust.soict.dsai.lab01.Exercise66.src;
+
 import java.util.*;
 
 public class AddTwoMatrices {
