@@ -15,16 +15,16 @@ public class StoreTest {
 		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
 
 		//Try adding DVDs
-		myStore.addDVD(dvd2);
-		myStore.addDVD(dvd1);
-		myStore.addDVD(dvd3);
-		myStore.addDVD(dvd1);
-		myStore.addDVD(dvd1);
+		myStore.addMedia(dvd2);
+		myStore.addMedia(dvd1);
+		myStore.addMedia(dvd3);
+		myStore.addMedia(dvd1);
+		myStore.addMedia(dvd1);
 		myStore.print();
 
 		//Try removing DVDs
-		myStore.removeDVD(dvd3);
-		myStore.removeDVD(dvd1);
+		myStore.removeMedia(dvd3);
+		myStore.removeMedia(dvd1);
 		myStore.print();
 	}
 }

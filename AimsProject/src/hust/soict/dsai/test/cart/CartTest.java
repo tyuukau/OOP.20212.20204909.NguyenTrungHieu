@@ -10,7 +10,6 @@ public class CartTest {
 
         //Create new dvd objects and add them to the cart
         DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-        cart.addMedia(dvd1);
         DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
         DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
         DigitalVideoDisc dvd4 = new DigitalVideoDisc("Star Trek");
@@ -22,10 +21,10 @@ public class CartTest {
 
 		Book book1 = new Book("Sherlock Holmes", "Detective", 5.99f);
 		book1.addAuthor("Conan Doyle");
-		book1.addAuthor("JK Rolling");
-		book1.addAuthor("jk rOLLING");
-		book1.removeAuthor("jk rOLLING");
-		book1.removeAuthor("jk rOLLING");
+		book1.addAuthor("Nguyen Trung Hieu");
+		book1.addAuthor("nguyen TRUNG hieu");
+		book1.removeAuthor("Nguyen Trung HIEU");
+		book1.removeAuthor("NGUYEN trung HIEU");
 		cart.addMedia(book1);
 
         //Test the searchByID method

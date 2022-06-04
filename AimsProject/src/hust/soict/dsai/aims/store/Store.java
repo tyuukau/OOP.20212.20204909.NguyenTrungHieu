@@ -2,25 +2,25 @@ package hust.soict.dsai.aims.store;
 
 import java.util.ArrayList;
 
-import hust.soict.dsai.aims.media.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.*;
 
 public class Store {
-    private ArrayList<DigitalVideoDisc> itemsInStore = new ArrayList<DigitalVideoDisc>();
+    private ArrayList<Media> itemsInStore = new ArrayList<Media>();
 
-	public void addDVD(DigitalVideoDisc disc) {
-		if (this.itemsInStore.contains(disc)) {
-			System.out.println(disc.getTitle() + " is already in the store.");
+	public void addMedia(Media media) {
+		if (this.itemsInStore.contains(media)) {
+			System.out.println(media.getTitle() + " is already in the store.");
 		} else {
-			this.itemsInStore.add(disc);
-			System.out.println(disc.getTitle() + " has been added to the store.");
+			this.itemsInStore.add(media);
+			System.out.println(media.getTitle() + " has been added to the store.");
 		}
 	}
 	
-	public void removeDVD(DigitalVideoDisc disc) {
-		if (this.itemsInStore.remove(disc)) {
-			System.out.println(disc.getTitle() + " has been removed from the store.");
+	public void removeMedia(Media media) {
+		if (this.itemsInStore.remove(media)) {
+			System.out.println(media.getTitle() + " has been removed from the store.");
 		} else {
-			System.out.println(disc.getTitle() + " was not found in the store.");;
+			System.out.println(media.getTitle() + " was not found in the store.");;
 		}
 	}
 
@@ -34,12 +34,12 @@ public class Store {
 		System.out.println("\n");
 	}
 	
-	// public ArrayList<DigitalVideoDisc> getItemsInStore() {
+	// public ArrayList<Media> getItemsInStore() {
 	// 	return this.itemsInStore;
 	// }
 
-	public DigitalVideoDisc searchDVD(String title) {
-		for (DigitalVideoDisc medium : this.itemsInStore) {
+	public Media searchMedia(String title) {
+		for (Media medium : this.itemsInStore) {
 			if (medium.getTitle().toLowerCase().equals(title.toLowerCase())) {
 				return medium;
 			}
