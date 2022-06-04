@@ -75,5 +75,24 @@ public class Media {
 		nbMedia += 1;
         this.dateAdded = LocalDate.now();
 	}
-    
+
+    public boolean isMatch(String title) {
+        boolean check = false;
+        String[] words = title.split("\\s+");
+        for (int i = 0; i < words.length; i++) {
+            // You may want to check for a non-word character before blindly
+            // performing a replacement
+            // It may also be necessary to adjust the character class
+            words[i] = words[i].toLowerCase().replaceAll("[^\\w]", "");
+        }
+        String thisTitle = this.getTitle().toLowerCase();
+        for (String word : words) {
+            if (thisTitle.contains(word)) {
+                check = true;
+                break;
+            }
+        }
+        return check;
+    }
+
 }

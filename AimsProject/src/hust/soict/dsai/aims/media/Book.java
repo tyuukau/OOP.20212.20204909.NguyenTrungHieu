@@ -2,46 +2,9 @@ package hust.soict.dsai.aims.media;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book {
+public class Book extends Media {
 
-    private String title;
-    private String category;
-    private float cost;
 	private List<String> authors = new ArrayList<String>();
-
-	private int id;
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCategory() {
-        return this.category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public float getCost() {
-        return this.cost;
-    }
-
-    public void setCost(float cost) {
-        this.cost = cost;
-    }
 
 	public void addAuthor(String authorName) {
         if (!this.authors.stream().anyMatch(authorName::equalsIgnoreCase)) {
@@ -61,23 +24,16 @@ public class Book {
         }
 	}
 
-	// public Book(String title, String category, float cost) {
-	// 	this.title = title;
-    //     this.category = category;
-    //     this.cost = cost;
-	// }
+    public Book(String title) {
+        super(title);
+    }
 
-	// public Book(String title, String category) {
-	// 	this.title = title;
-    //     this.category = category;
-	// }
+    public Book(String title, String category) {
+        super(title, category);
+    }
 
-	// public Book(String title) {
-	// 	this.title = title;
-	// }
-
-    // public Book() {
-    //
-    // }
+    public Book(String title, String category, float cost) {
+        super(title, category, cost);
+    }
 
 }
