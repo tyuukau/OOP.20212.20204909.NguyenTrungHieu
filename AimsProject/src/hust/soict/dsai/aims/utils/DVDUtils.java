@@ -1,7 +1,8 @@
 package hust.soict.dsai.aims.utils;
 
-import hust.soict.dsai.aims.disc.DigitalVideoDisc;
 import java.util.Arrays;
+
+import hust.soict.dsai.aims.media.DigitalVideoDisc;
 
 public class DVDUtils {
     

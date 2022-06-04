@@ -1,7 +1,9 @@
 package hust.soict.dsai.aims.cart;
 
-import hust.soict.dsai.aims.disc.DigitalVideoDisc;
 import java.util.Comparator;
+
+import hust.soict.dsai.aims.media.DigitalVideoDisc;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -203,7 +205,7 @@ public class Cart {
 			System.out.println("\n");
 			return true;
 		} else {
-			System.out.println("Such product is not in the cart");
+			System.out.println("No such product was found.");
 			System.out.println("***************************************************");
 			System.out.println("\n");
 			return false;
@@ -231,7 +233,7 @@ public class Cart {
 			System.out.println("\n");
 			return true;
 		} else {
-			System.out.println("Such product is not in the cart");
+			System.out.println("No such product was found.");
 			System.out.println("***************************************************");
 			System.out.println("\n");
 			return false;

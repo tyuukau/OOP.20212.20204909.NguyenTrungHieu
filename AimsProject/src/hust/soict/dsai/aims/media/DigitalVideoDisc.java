@@ -1,4 +1,4 @@
-package hust.soict.dsai.aims.disc;
+package hust.soict.dsai.aims.media;
 
 import java.time.LocalDate;
 import java.util.Comparator;
