@@ -13,11 +13,9 @@ public class Cart {
 
     private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
 
-    private int qtyOrdered = 0;
-
     public int addMedia(Media media) {
         int numberOfAddedMedia = 0;
-        if (this.qtyOrdered == MAX_NUMBERS_ORDERED) {
+        if (this.itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
             System.out.println("The cart is already full. No media was added.%n");
         // If the item is not allowed to be duplicated
         // } else if (this.itemsOrdered.contains(media)) {
@@ -25,7 +23,6 @@ public class Cart {
         } else {
             this.itemsOrdered.add(media);
             numberOfAddedMedia = 1;
-            this.qtyOrdered += numberOfAddedMedia;
             System.out.printf("%d media, '%s', has been added to the cart.%n", numberOfAddedMedia, media.getTitle());
         }
         return numberOfAddedMedia;
@@ -34,10 +31,9 @@ public class Cart {
     public int addMedia(Media ... mediaList) {
         int numberOfAddedMedia = 0;
         for (Media media: mediaList) {
-            if (this.qtyOrdered < MAX_NUMBERS_ORDERED) {
+            if (this.itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
                 this.itemsOrdered.add(media);
                 numberOfAddedMedia += 1;
-                this.qtyOrdered += 1;
                 System.out.printf("1 media, '%s', has been added to the cart.%n", media.getTitle());
             } else {
                 System.out.println("The cart is already full. No media was added.");
@@ -52,10 +48,9 @@ public class Cart {
         int numberOfAddedMedia = 0;
         Media[] mediaList = {media1, media2};
         for (Media media: mediaList) {
-            if (this.qtyOrdered < MAX_NUMBERS_ORDERED) {
+            if (this.itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
                 this.itemsOrdered.add(media);
                 numberOfAddedMedia += 1;
-                this.qtyOrdered += 1;
                 System.out.printf("1 media, '%s', has been added to the cart.%n", media.getTitle());
             } else {
                 System.out.println("The cart is already full. No media was added.");
@@ -72,7 +67,6 @@ public class Cart {
             if (mediaFromCart.getTitle() == media.getTitle()) {
                 this.itemsOrdered.remove(mediaFromCart);
                 numberOfRemovedMedia += 1;
-                this.qtyOrdered -= numberOfRemovedMedia;
                 System.out.printf("1 media, '%s', has been removed the cart.%n", media.getTitle());
                 break;
             }
