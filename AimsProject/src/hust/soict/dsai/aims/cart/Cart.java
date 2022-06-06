@@ -1,11 +1,13 @@
 package hust.soict.dsai.aims.cart;
 
 import java.util.Comparator;
+import java.util.concurrent.ThreadLocalRandom;
 
 import hust.soict.dsai.aims.media.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.lang.Math;
 
 public class Cart {
 
@@ -227,6 +229,16 @@ public class Cart {
     public int getSize() {
         return this.itemsOrdered.size();
     }
+
+	public int getALuckyItem() { 
+		int indexOfFreeItem = 0;
+		if (this.itemsOrdered.size() >= 5) {
+			indexOfFreeItem = ThreadLocalRandom.current().nextInt(this.itemsOrdered.size());
+			return indexOfFreeItem;
+		} else {
+			return -1;
+		}
+	}
 
     public void print() {
 
