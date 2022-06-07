@@ -1,6 +1,6 @@
 package hust.soict.dsai.aims.media;
 
-public class Disc extends Media {
+public abstract class Disc extends Media implements Playable {
 
     private String director;
     private int length;

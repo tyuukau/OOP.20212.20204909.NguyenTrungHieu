@@ -3,7 +3,7 @@ package hust.soict.dsai.aims.media;
 import java.time.LocalDate;
 import java.util.Comparator;
 
-public class Media {
+public abstract class Media {
 
     private String title;
     private String category;

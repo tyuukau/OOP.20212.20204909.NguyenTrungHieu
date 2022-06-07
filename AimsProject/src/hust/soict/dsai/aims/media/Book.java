@@ -24,6 +24,13 @@ public class Book extends Media {
         }
 	}
 
+    public String toString() {
+        return(String.format("Book - [%s] - [%s]: $%f",
+                             this.getTitle(), 
+                             this.getCategory(), 
+                             this.getCost()));
+    }
+
     public Book(String title) {
         super(title);
     }
