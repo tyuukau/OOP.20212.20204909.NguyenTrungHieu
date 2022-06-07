@@ -1,0 +1,3 @@
+Question 0: Which classes are aggregates of other classes?
+
+Answer: Indicated in the class diagram.

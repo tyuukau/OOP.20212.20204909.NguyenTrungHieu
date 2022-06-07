@@ -3,6 +3,7 @@ package hust.soict.dsai.aims;
 import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
+import hust.soict.dsai.aims.memory.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,6 +16,10 @@ public class Aims {
     private static Cart cart = new Cart();
 
     public static void main(String[] args) {
+
+        Thread dt = new Thread(new MemoryDaemon(), "My Daemon Thread");
+        dt.setDaemon(true);
+        dt.start();
 
         // //Create a new cart
         // Cart anOrder = new Cart();

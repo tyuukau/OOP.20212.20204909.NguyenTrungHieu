@@ -45,10 +45,6 @@ public abstract class Media {
         return this.id;
     }
 
-    public void setID(int id) {
-        this.id = id;
-    }
-
 	public Media(String title) {
 		super();
 		this.title = title;
