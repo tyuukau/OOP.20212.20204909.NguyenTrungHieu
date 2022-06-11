@@ -3,7 +3,7 @@ package hust.soict.dsai.aims.media;
 import java.time.LocalDate;
 import java.util.Comparator;
 
-public abstract class Media {
+public abstract class Media implements Comparable<Media> {
 
     private String title;
     private String category;
@@ -101,6 +101,17 @@ public abstract class Media {
 			return false;
 		}
 	}
+
+    public int compareTo(Media other) {
+        int titleCondition = this.getTitle().compareToIgnoreCase(other.getTitle());
+        int categoryCondition = this.getCategory().compareToIgnoreCase(other.getTitle());
+        if (titleCondition != 0) {
+            return titleCondition;
+        } else {
+            return categoryCondition;
+        }
+
+    }
 	
 
 }
