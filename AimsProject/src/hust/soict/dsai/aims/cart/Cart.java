@@ -17,9 +17,8 @@ public class Cart {
         int numberOfAddedMedia = 0;
         if (this.itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
             System.out.println("The cart is already full. No media was added.%n");
-        // If the item is not allowed to be duplicated
-        // } else if (this.itemsOrdered.contains(media)) {
-        //     System.out.printf("'%s' is already in the cart. No media was added.%n", media.getTitle());
+        } else if (this.itemsOrdered.contains(media)) {
+            System.out.printf("'%s' is already in the cart. No media was added.%n", media.getTitle());
         } else {
             this.itemsOrdered.add(media);
             numberOfAddedMedia = 1;
@@ -31,15 +30,17 @@ public class Cart {
     public int addMedia(Media ... mediaList) {
         int numberOfAddedMedia = 0;
         for (Media media: mediaList) {
-            if (this.itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
-                this.itemsOrdered.add(media);
-                numberOfAddedMedia += 1;
-                System.out.printf("1 media, '%s', has been added to the cart.%n", media.getTitle());
-            } else {
-                System.out.println("The cart is already full. No media was added.");
-                break;
-            }
-        }
+			if (this.itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
+				System.out.println("The cart is already full.%n");
+				break;
+			} else if (this.itemsOrdered.contains(media)) {
+				System.out.printf("'%s' is already in the cart. No media was added.%n", media.getTitle());
+			} else {
+				this.itemsOrdered.add(media);
+				numberOfAddedMedia += 1;
+				System.out.printf("%d media, '%s', has been added to the cart.%n", numberOfAddedMedia, media.getTitle());
+			}
+		}
         System.out.printf("In total, %d media(s) have been added to the cart.%n", numberOfAddedMedia);
         return numberOfAddedMedia;
     }
@@ -48,14 +49,16 @@ public class Cart {
         int numberOfAddedMedia = 0;
         Media[] mediaList = {media1, media2};
         for (Media media: mediaList) {
-            if (this.itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
-                this.itemsOrdered.add(media);
-                numberOfAddedMedia += 1;
-                System.out.printf("1 media, '%s', has been added to the cart.%n", media.getTitle());
-            } else {
-                System.out.println("The cart is already full. No media was added.");
-                break;
-            }
+			if (this.itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
+				System.out.println("The cart is already full.%n");
+				break;
+			} else if (this.itemsOrdered.contains(media)) {
+				System.out.printf("'%s' is already in the cart. No media was added.%n", media.getTitle());
+			} else {
+				this.itemsOrdered.add(media);
+				numberOfAddedMedia += 1;
+				System.out.printf("%d media, '%s', has been added to the cart.%n", numberOfAddedMedia, media.getTitle());
+			}
         }
         System.out.printf("In total, %d media(s) have been added to the cart.%n", numberOfAddedMedia);
         return numberOfAddedMedia;
