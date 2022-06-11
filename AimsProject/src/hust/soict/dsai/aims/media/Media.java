@@ -13,17 +13,8 @@ public abstract class Media implements Comparable<Media> {
     private int id;
     private static int nbMedia = 0;
 
-    public final static Comparator<Media> COMPARE_BY_TITLE = new Comparator<Media>() {
-        public int compare(Media media1, Media media2) {
-            return media1.getTitle().compareToIgnoreCase(media2.getTitle());
-        }
-    };
-
-    public final static Comparator<Media> COMPARE_BY_COST = new Comparator<Media>() {
-        public int compare(Media media1, Media media2) {
-            return Float.compare(media2.getCost(), media2.getCost());
-        }
-    };
+    public final static Comparator<Media> COMPARE_BY_TITLE_COST = new MediaComparatorTitleCost();
+    public final static Comparator<Media> COMPARE_BY_COST_TITLE = new MediaComparatorCostTitle();
 
     public String getTitle() {
         return this.title;
@@ -105,13 +96,7 @@ public abstract class Media implements Comparable<Media> {
     public int compareTo(Media other) {
         int titleCondition = this.getTitle().compareToIgnoreCase(other.getTitle());
         int categoryCondition = this.getCategory().compareToIgnoreCase(other.getTitle());
-        if (titleCondition != 0) {
-            return titleCondition;
-        } else {
-            return categoryCondition;
-        }
-
+        return titleCondition != 0 ? titleCondition : categoryCondition;
     }
 	
-
 }

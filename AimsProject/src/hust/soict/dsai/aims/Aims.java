@@ -95,7 +95,7 @@ public class Aims {
                          + "1. See a Media's details\n" //seeDetailsMenu()                  
                          + "2. Add a Media to cart\n" //addToCart()                
                          + "3. See current cart\n" //cartMenu()
-                         + "4. Play a Media\n" //playMedia() 
+                         + "4. Play a Media\n" //playMediaMenu() 
                          + "0. Back\n"+ "--------------------------------\n"
                          + "Please choose a number: 0-1-2-3-4");
 		
@@ -196,7 +196,33 @@ public class Aims {
 
     public static void seeDetailsMenu(Media media) {
 
-        if (media instanceof Book) {
+        if (media instanceof Playable) {
+            System.out.println("\t" + media.toString());
+            System.out.println("\tDate added: " + media.getDateAdded());
+            System.out.println("Options: \n"
+                             + "--------------------------------\n"
+                             + "1. Add this product to cart\n"
+                             + "2. Play this Media\n"
+                             + "0. Exit\n"
+                             + "--------------------------------\n"
+                             + "Please choose a number: 0-1");
+    
+            int choice = getChoice(2);
+    
+            if (choice == 1) {
+                cart.addMedia(media);
+                System.out.println("Enter any key to continue");
+                scanner.nextLine();
+                storeMenu();
+            } else if (choice == 2) {
+                ((Playable)media).play();
+                System.out.println("Enter any key to return");
+                scanner.nextLine();
+                seeDetailsMenu(media);
+            } else if (choice == 0) {
+                storeMenu();
+            }  
+        } else {
             System.out.println("\t" + media.toString());
             System.out.println("\tDate added: " + media.getDateAdded());
             System.out.println("Options: \n"
@@ -217,35 +243,6 @@ public class Aims {
                 storeMenu();
             }  
         }
-
-        else if (media instanceof Disc) {
-            System.out.println("\t" + media.toString());
-            System.out.println("\tDate added: " + media.getDateAdded());
-            System.out.println("Options: \n"
-                             + "--------------------------------\n"
-                             + "1. Add this product to cart\n"
-                             + "2. Play this Media\n"
-                             + "0. Exit\n"
-                             + "--------------------------------\n"
-                             + "Please choose a number: 0-1");
-    
-            int choice = getChoice(2);
-    
-            if (choice == 1) {
-                cart.addMedia(media);
-                System.out.println("Enter any key to continue");
-                scanner.nextLine();
-                storeMenu();
-            } else if (choice == 2) {
-                Disc m = (Disc) media;
-                m.play();
-                System.out.println("Enter any key to return");
-                scanner.nextLine();
-                seeDetailsMenu(media);
-            } else if (choice == 0) {
-                storeMenu();
-            }  
-        }   
     }
 
     public static void addToCart() {
@@ -490,13 +487,12 @@ public class Aims {
             }
         }
 
-        if (media instanceof Disc) {
+        if (media instanceof Playable) {
             System.out.println("\t" + media.toString());
             System.out.println("\tDate added: " + media.getDateAdded());
-            Disc m = (Disc) media;
-            m.play();
+            ((Playable)media).play();
         } else {
-            System.out.println("Media is found but it is not a DVD or CD.");
+            System.out.println("Media is found but it is not of a playable type.");
         }
 
         System.out.println("Enter any key to continue");

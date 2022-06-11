@@ -23,8 +23,8 @@ public class TestMediaCompareTo {
         Collection<Media> collection = new ArrayList<Media>();
 
         // Add the DVD objects to the ArrayList 
-        collection.add(dvd2); 
-        collection.add(dvd1);
+        collection.add(dvd1); 
+        collection.add(dvd2);
         collection.add(dvd3);
         collection.add(dvd4); 
         collection.add(dvd5); 

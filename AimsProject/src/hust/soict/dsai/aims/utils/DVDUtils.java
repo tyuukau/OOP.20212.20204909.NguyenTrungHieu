@@ -15,12 +15,12 @@ public class DVDUtils {
     }
   
     public static DigitalVideoDisc[] sortByCost(DigitalVideoDisc ... discs) {
-        Arrays.sort(discs, DigitalVideoDisc.COMPARE_BY_COST);
+        Arrays.sort(discs, DigitalVideoDisc.COMPARE_BY_COST_TITLE);
         return discs;
     }
     
     public static DigitalVideoDisc[] sortByTitle(DigitalVideoDisc ... discs) {
-        Arrays.sort(discs, DigitalVideoDisc.COMPARE_BY_TITLE);
+        Arrays.sort(discs, DigitalVideoDisc.COMPARE_BY_TITLE_COST);
         return discs;
     }
 

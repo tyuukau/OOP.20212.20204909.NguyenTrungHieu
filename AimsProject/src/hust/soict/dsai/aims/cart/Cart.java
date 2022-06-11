@@ -2,7 +2,6 @@ package hust.soict.dsai.aims.cart;
 
 import hust.soict.dsai.aims.media.*;
 
-import java.util.Comparator;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,7 +97,7 @@ public class Cart {
 		System.out.println("Product ID: " + id);
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
 			if (this.itemsOrdered.get(i).getID() == id) {
-				System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString() + "\n");
+				System.out.println(Integer.toString(i+1) + "." + this.itemsOrdered.get(i).toString() + "\n");
 				qty += 1;
 				cost = this.itemsOrdered.get(i).getCost();
 				found = true;
@@ -140,11 +139,11 @@ public class Cart {
 	}
 
     public void sortByTitle() {
-        Collections.sort(this.itemsOrdered, Media.COMPARE_BY_TITLE);
+        Collections.sort(this.itemsOrdered, Media.COMPARE_BY_TITLE_COST);
 		System.out.println("\n***********************CART***********************");
 		System.out.println("Ordered Items  (Sorted by Title):");
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
-			System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString());
+			System.out.println(Integer.toString(i+1) + "." + this.itemsOrdered.get(i).toString());
 		}
 		System.out.println("Total cost: " + "$" + this.totalCost());
 		System.out.println("***************************************************");
@@ -152,11 +151,11 @@ public class Cart {
     }
 
     public void sortByCost() {
-        Collections.sort(this.itemsOrdered, Media.COMPARE_BY_COST);
+        Collections.sort(this.itemsOrdered, Media.COMPARE_BY_COST_TITLE);
 		System.out.println("\n***********************CART***********************");
 		System.out.println("Ordered Items  (Sorted by Cost):");
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
-			System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString());
+			System.out.println(Integer.toString(i+1) + "." + this.itemsOrdered.get(i).toString());
 		}
 		System.out.println("Total cost: " + "$" + this.totalCost());
 		System.out.println("***************************************************");
@@ -243,40 +242,11 @@ public class Cart {
 
     public void print() {
 
-	    // final Comparator<Media> COMPARE_BY_TITLE_COST_LENGTH = new Comparator<Media>() {
-		// 	public int compare(Media media1, Media media2) {
-		// 		int titleCondition = media1.getTitle().compareToIgnoreCase(media2.getTitle());
-		// 		int costCondition = Float.compare(media1.getCost(), media2.getCost());
-		// 		int lengthCondition = Integer.compare(media1.getLength(), media2.getLength());
-		// 		if (titleCondition != 0) {
-		// 			return titleCondition;
-		// 		} else {
-		// 			if (costCondition != 0) {
-		// 				return costCondition;
-		// 			} else {
-		// 				return lengthCondition;
-		// 			}
-		// 		}
-		// 	}
-		// };
-
-		final Comparator<Media> COMPARE_BY_TITLE_COST = new Comparator<Media>() {
-			public int compare(Media media1, Media media2) {
-				int titleCondition = media1.getTitle().compareToIgnoreCase(media2.getTitle());
-				int costCondition = Float.compare(media1.getCost(), media2.getCost());
-				if (titleCondition != 0) {
-					return titleCondition;
-				} else {
-					return costCondition;
-				}
-			}
-		};
-
-        Collections.sort(this.itemsOrdered, COMPARE_BY_TITLE_COST);
+        Collections.sort(this.itemsOrdered, Media.COMPARE_BY_TITLE_COST);
 		System.out.println("\n***********************CART***********************");
 		System.out.println("Ordered Items:");
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
-			System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsOrdered.get(i).toString());
+			System.out.println(Integer.toString(i+1) + "." + this.itemsOrdered.get(i).toString());
 		}
 		System.out.println("Total cost: " + "$" + this.totalCost());
 		System.out.println("***************************************************");
