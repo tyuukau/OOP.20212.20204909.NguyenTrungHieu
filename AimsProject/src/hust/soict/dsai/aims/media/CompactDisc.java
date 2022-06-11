@@ -34,13 +34,23 @@ public class CompactDisc extends Disc {
 	}
 
     public String toString() {
-        return(String.format("CD - [%s] - [%s] - [%s] - [%s] - [%d]: $%f",
+        return(String.format("[$%f]:\n" + 
+                             "\tCD\n" +
+                             "\tTitle: %s\n" +
+                             "\tCategory: %s\n" +
+                             "\tDirector: %s\n" +
+							 "\tArtist: %s\n" +
+                             "\tLength: %s" +
+							 "\tTrack:\n" +
+							 "%s"
+                             ,
+                             this.getCost(),
                              this.getTitle(), 
-                             this.getCategory(), 
+                             this.getCategory(),
                              this.getDirector(),
-                             this.getArtist(), 
+							 this.getArtist(),
                              this.getLength(),
-                             this.getCost()));
+							 this.getTrack()));
     }
 	
 	public int getLength() {
@@ -54,6 +64,14 @@ public class CompactDisc extends Disc {
     public String getArtist() {
         return this.artist;
     }
+
+	public String getTrack() {
+		String output = "";
+		for (Track track : this.tracks) {
+			output += ("\t\t" + track.getTitle() + track.getLength());
+		}
+		return output;
+	}
 
     public CompactDisc(String title) {
 		super(title);

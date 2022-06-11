@@ -14,12 +14,18 @@ public class StoreTest {
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
 		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
 
+		Book book = new Book("Harry Potter", "Fantasy", 30.00f);
+
+        book.addAuthor("Rowling");
+        book.setContent("There were Mr. and Mrs. Dursley of number four, Privet Drive. They were proud to say that they were perfectly normal, thank you very much.");
+
 		//Try adding DVDs
 		myStore.addMedia(dvd2);
 		myStore.addMedia(dvd1);
 		myStore.addMedia(dvd3);
 		myStore.addMedia(dvd1);
 		myStore.addMedia(dvd1);
+		myStore.addMedia(book);
 		myStore.print();
 
 		//Try removing DVDs

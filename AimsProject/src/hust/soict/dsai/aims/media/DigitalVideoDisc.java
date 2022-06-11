@@ -10,14 +10,20 @@ public class DigitalVideoDisc extends Disc {
 			System.out.println("Cannot play DVD: " + this.getTitle() + ". Length is less than 0.");
 		}
     }       
-    
+
     public String toString() {
-        return(String.format("DVD - [%s] - [%s] - [%s] - [%d]: $%f",
+        return(String.format("[$%f]:\n" + 
+                             "\tDVD\n" +
+                             "\tTitle: %s\n" +
+                             "\tCategory: %s\n" +
+                             "\tDirector: %s\n" +
+                             "\tLength: %s"
+                             ,
+                             this.getCost(),
                              this.getTitle(), 
-                             this.getCategory(), 
-                             this.getDirector(), 
-                             this.getLength(),
-                             this.getCost()));
+                             this.getCategory(),
+                             this.getDirector(),
+                             this.getLength()));
     }
 
     public DigitalVideoDisc(String title) {

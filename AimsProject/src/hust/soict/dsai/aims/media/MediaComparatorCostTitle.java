@@ -1,4 +1,5 @@
 package hust.soict.dsai.aims.media;
+
 import java.util.Comparator;
 
 public class MediaComparatorCostTitle implements Comparator<Media> {
@@ -8,4 +9,5 @@ public class MediaComparatorCostTitle implements Comparator<Media> {
         int titleComparison = m1.getTitle().compareToIgnoreCase(m2.getTitle());
         return costComparison != 0 ? costComparison : titleComparison;
 	}
+
 }
