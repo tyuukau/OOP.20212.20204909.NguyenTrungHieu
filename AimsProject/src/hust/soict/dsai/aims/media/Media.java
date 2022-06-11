@@ -93,4 +93,14 @@ public abstract class Media {
         return check;
     }
 
+	public boolean equals(Object media) {
+		if (media instanceof Media) {
+			Media that = (Media) media;
+			return (this.id == that.id);
+		} else {
+			return false;
+		}
+	}
+	
+
 }
