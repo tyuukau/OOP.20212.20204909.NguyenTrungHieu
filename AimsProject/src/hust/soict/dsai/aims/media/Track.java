@@ -22,6 +22,10 @@ public class Track implements Playable {
 		return length;
 	}
 
+	public String toString() {
+		return (this.getTitle() + ", Length: " + this.getLength());
+	}
+
     public Track(String title) {
 		super();
 		this.title = title;

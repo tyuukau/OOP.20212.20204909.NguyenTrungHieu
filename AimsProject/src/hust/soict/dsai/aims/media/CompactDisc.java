@@ -40,7 +40,7 @@ public class CompactDisc extends Disc {
                              "\tCategory: %s\n" +
                              "\tDirector: %s\n" +
 							 "\tArtist: %s\n" +
-                             "\tLength: %s" +
+                             "\tLength: %s\n" +
 							 "\tTrack:\n" +
 							 "%s"
                              ,
@@ -68,7 +68,7 @@ public class CompactDisc extends Disc {
 	public String getTrack() {
 		String output = "";
 		for (Track track : this.tracks) {
-			output += ("\t\t" + track.getTitle() + track.getLength());
+			output += ("\t\t" + track.toString() + "\n");
 		}
 		return output;
 	}

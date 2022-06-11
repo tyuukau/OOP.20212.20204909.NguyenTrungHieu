@@ -18,6 +18,9 @@ public class CartTest {
         DigitalVideoDisc[] dvdList = {dvd1, dvd2, dvd3, dvd4, dvd5, dvd6};
 
         cart.addMedia(dvdList);
+		cart.addMedia(dvd3);
+		cart.removeMedia(dvd3);
+		cart.removeMedia(dvd3);
 
 		Book book1 = new Book("Sherlock Holmes", "Detective", 5.99f);
 		book1.addAuthor("Conan Doyle");
@@ -25,7 +28,22 @@ public class CartTest {
 		book1.addAuthor("nguyen TRUNG hieu");
 		book1.removeAuthor("Nguyen Trung HIEU");
 		book1.removeAuthor("NGUYEN trung HIEU");
+
+        book1.setContent("With a wry face I went out into the hall and opened the door. To my astonishment it was Sherlock Holmes who stood upon my step.");
+
 		cart.addMedia(book1);
+
+        Track track1 = new Track("Bruh1", 13);
+		Track track2 = new Track("Bruh2", 21);
+		CompactDisc cd1 = new CompactDisc("Allstars", "Yes", "Smash Mouth", "Dunno", 69.420f);
+		cd1.addTrack(track1);
+		cd1.addTrack(track2);
+		cd1.addTrack(track1);
+		cd1.removeTrack(track2);
+		cd1.removeTrack(track2);
+		cd1.addTrack(track2);
+		cd1.addTrack(track1);
+		cart.addMedia(cd1);
 
         //Test the searchByID method
         cart.searchByID(1);
