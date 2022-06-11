@@ -3,9 +3,13 @@ package hust.soict.dsai.aims.media;
 public class DigitalVideoDisc extends Disc {
 
     public void play() {
-        System.out.println("Playing DVD: " + this.getTitle());
-        System.out.println("DVD length: " + this.getLength());
-    }        
+		if (this.getLength() > 0) {
+			System.out.println("Playing DVD: " + this.getTitle());
+			System.out.println("DVD length: " + this.getLength());
+		} else {
+			System.out.println("Cannot play DVD: " + this.getTitle() + ". Length is less than 0.");
+		}
+    }       
     
     public String toString() {
         return(String.format("DVD - [%s] - [%s] - [%s] - [%d]: $%f",

@@ -72,6 +72,8 @@ public abstract class Media {
         this.dateAdded = LocalDate.now();
 	}
 
+    public abstract String toString();
+
     public boolean isMatch(String title) {
         boolean check = false;
         String[] words = title.split("\\s+");

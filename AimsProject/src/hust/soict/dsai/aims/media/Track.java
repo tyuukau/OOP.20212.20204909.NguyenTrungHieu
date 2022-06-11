@@ -6,8 +6,12 @@ public class Track implements Playable {
 	private int length;
 
     public void play() {
-        System.out.println("Playing track: " + this.getTitle());
-        System.out.println("Track length: " + this.getLength());
+		if (this.getLength() > 0) {
+			System.out.println("Playing track: " + this.getTitle());
+			System.out.println("Track length: " + this.getLength());
+		} else {
+			System.out.println("Cannot play track: " + this.getTitle() + ". Length is less than 0.");
+		}
     }  
 	
 	public String getTitle() {
