@@ -17,7 +17,7 @@ public class StoreTest {
 		Book book = new Book("Harry Potter", "Fantasy", 30.00f);
 
         book.addAuthor("Rowling");
-        book.setContent("There were Mr. and Mrs. Dursley of number four, Privet Drive. They were proud to say that they were perfectly normal, thank you very much.");
+        book.setProcessContent("There were Mr. and Mrs. Dursley of number four, Privet Drive. They were proud to say that they were perfectly normal, thank you very much.");
 
 		// Add media
 		myStore.addMedia(dvd2);

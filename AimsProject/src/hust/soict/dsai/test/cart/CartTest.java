@@ -27,7 +27,7 @@ public class CartTest {
 		book1.addAuthor("nguyen TRUNG hieu");
 		book1.removeAuthor("Nguyen Trung HIEU");
 		book1.removeAuthor("NGUYEN trung HIEU");
-        book1.setContent("With a wry face I went out into the hall and opened the door. To my astonishment it was Sherlock Holmes who stood upon my step.");
+        book1.setProcessContent("With a wry face I went out into the hall and opened the door. To my astonishment it was Sherlock Holmes who stood upon my step.");
 		cart.addMedia(book1);
 
         Track track1 = new Track("Bruh1", 13);

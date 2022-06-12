@@ -38,7 +38,7 @@ public class Aims {
 		Book book1 = new Book("Sherlock Holmes", "Detective", 5f);
 		book1.addAuthor("Conan Doyle");
 		book1.addAuthor("JK Rolling");
-        book1.setContent("With a wry face I went out into the hall and opened the door. To my astonishment it was Sherlock Holmes who stood upon my step.");
+        book1.setProcessContent("With a wry face I went out into the hall and opened the door. To my astonishment it was Sherlock Holmes who stood upon my step.");
 
 		store.addMedia(dvd1);
 		store.addMedia(dvd2);

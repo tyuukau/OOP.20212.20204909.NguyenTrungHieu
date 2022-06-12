@@ -33,12 +33,8 @@ public class Book extends Media {
         }
 	}
 
-    public void setContent(String content) {
+    public void setProcessContent(String content) {
         this.content = content;
-        this.processContent();
-    }
-
-    public void processContent() {
         // Split the content into words
         String[] words = this.content.split("\\W+");
 
@@ -66,6 +62,10 @@ public class Book extends Media {
     }
 
     public String toString() {
+        String wordFrequencyOutput = "";
+        for (Map.Entry<String, Integer> entry : this.wordFrequency.entrySet()) {
+            wordFrequencyOutput += ("\t\t\'" + entry.getKey() + "\': " + entry.getValue() + "\n");
+        }
         return(String.format("[$%f]:\n" + 
                              "\tBook\n" +
                              "\tTitle: %s\n" +
@@ -79,35 +79,11 @@ public class Book extends Media {
                              this.getCost(),
                              this.getTitle(), 
                              this.getCategory(),
-                             this.getAuthor(),
-                             this.getContent(),
-                             this.getContentLength(),
-                             this.getContentTokens(),
-                             this.getWordFrequency()));
-    }
-
-    public String getAuthor() {
-        return this.authors.toString().replace("[","").replace("]","");
-    }
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public int getContentLength() {
-        return this.contentLength;
-    }
-
-    public String getContentTokens() {
-        return this.contentTokens.toString().replace("[","").replace("]","");
-    }
-
-    public String getWordFrequency() {
-        String output = "";
-        for (Map.Entry<String, Integer> entry : this.wordFrequency.entrySet()) {
-            output += ("\t\t\'" + entry.getKey() + "\': " + entry.getValue() + "\n");
-        }
-        return output;
+                             this.authors.toString().replace("[","").replace("]",""),
+                             this.content,
+                             this.contentLength,
+                             this.contentTokens.toString().replace("[","").replace("]",""),
+                             wordFrequencyOutput));
     }
 
     public Book(String title) {
