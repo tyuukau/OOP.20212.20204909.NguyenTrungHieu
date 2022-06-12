@@ -17,52 +17,47 @@ public class Aims {
 
     public static void main(String[] args) {
 
+        // Start the MemoryDaemon
         Thread dt = new Thread(new MemoryDaemon(), "My Daemon Thread");
         dt.setDaemon(true);
         dt.start();
 
-        // //Create a new cart
-        // Cart anOrder = new Cart();
-
-        // //Create new DVD objects and add them to the cart
-        // DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-        // anOrder.addDVD(dvd1);
-
-        // DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
-        // anOrder.addDVD(dvd2);
-        
-        // DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
-        // anOrder.addDVD(dvd3);
-
-        // //Print total cost of the items in the cart
-        // System.out.println("Total Cost is: " + anOrder.totalCost());
-        
-        // anOrder.removeDVD(dvd3);
-        // System.out.println("Total Cost is: " + anOrder.totalCost());
-
-        // DigitalVideoDisc dvd4 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-        // DigitalVideoDisc dvd5 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
-        // DigitalVideoDisc[] dvdList = {dvd4, dvd5};
-        // anOrder.addDVD(dvdList);
-
+		// Add media to the store
         DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
 		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
+        DigitalVideoDisc dvd4 = new DigitalVideoDisc("DDDD", "dddd", "dddd", 4, 7.1f);
+		DigitalVideoDisc dvd5 = new DigitalVideoDisc("EEEE", "eeee", "eeee", 5, 3.3f);
+
+		Track track1 = new Track("Bruh1", 13);
+		Track track2 = new Track("Bruh2", 21);
+		CompactDisc cd1 = new CompactDisc("Allstars", "Yes", "Smash Mouth", "Dunno", 69.420f);
+		cd1.addTrack(track1);
+		cd1.addTrack(track2);
+
+		Book book1 = new Book("Sherlock Holmes", "Detective", 5f);
+		book1.addAuthor("Conan Doyle");
+		book1.addAuthor("JK Rolling");
+        book1.setContent("With a wry face I went out into the hall and opened the door. To my astonishment it was Sherlock Holmes who stood upon my step.");
+
 		store.addMedia(dvd1);
 		store.addMedia(dvd2);
 		store.addMedia(dvd3);
-
-        //Start program
+        store.addMedia(dvd4);
+        store.addMedia(dvd5);
+		store.addMedia(cd1);
+		store.addMedia(book1);
+    
+        // Start program
         showMenu();
     }
 
     public static void showMenu() {
-
 		System.out.println("AIMS:\n"
                          + "--------------------------------\n"
-                         + "1. View store\n" //storeMenu()
-                         + "2. Update store\n" //updateStoreMenu()
-                         + "3. See current cart\n" //cartMenu()
+                         + "1. View store\n" // storeMenu()
+                         + "2. Update store\n" // updateStoreMenu()
+                         + "3. See current cart\n" // cartMenu()
                          + "0. Exit\n"
                          + "--------------------------------\n"
                          + "Please choose a number: 0-1-2-3");
@@ -92,10 +87,10 @@ public class Aims {
     public static void storeMenu() {
 		System.out.println("Options: \n"
 		                 + "--------------------------------\n"              
-                         + "1. See a Media's details\n" //seeDetailsMenu()                  
-                         + "2. Add a Media to cart\n" //addToCart()                
-                         + "3. See current cart\n" //cartMenu()
-                         + "4. Play a Media\n" //playMediaMenu() 
+                         + "1. See a Media's details\n" // seeDetailsMenu()                  
+                         + "2. Add a Media to cart\n" // addToCart()                
+                         + "3. See current cart\n" // cartMenu()
+                         + "4. Play a Media\n" // playMediaMenu() 
                          + "0. Back\n"+ "--------------------------------\n"
                          + "Please choose a number: 0-1-2-3-4");
 		
@@ -106,20 +101,18 @@ public class Aims {
                 System.out.println("Please enter the title of the media you want to see details of: ");
                 String title = scanner.nextLine();
                 Media media = store.searchMedia(title);
-
+                // Invalid name
                 while (media == null) {
                     System.out.println("Please enter a valid product name.");
                     title = scanner.nextLine();
                     media = store.searchMedia(title);
                 }
-
                 seeDetailsMenu(media);
                 break;
             case 2:
                 addToCart();
                 break;
             case 3:
-                cart.print();
                 cartMenu();
                 break;
             case 4:
@@ -134,8 +127,8 @@ public class Aims {
     public static void updateStoreMenu() {
         System.out.println("Options: \n"
 		                 + "--------------------------------\n"
-		                 + "1. Add media to the store\n" //addToStoreMenu()
-		                 + "2. Remove media from the store\n" //removeFromStoreMenu()
+		                 + "1. Add media to the store\n" // addToStoreMenu()
+		                 + "2. Remove media from the store\n" // removeFromStoreMenu()
 		                 + "0. Exit\n"
                          + "--------------------------------\n"
                          + "Please choose a number: 0-1-2\n");
@@ -158,13 +151,15 @@ public class Aims {
     }
 
     public static void cartMenu() {
+        cart.print();
+
 		System.out.println("Options:\n"
                          + "--------------------------------\n"
-                         + "1. Filter Media in cart\n" //filterCartMenu()
-                         + "2. Sort Media in cart\n" //sortCartMenu()
-                         + "3. Remove Media from cart\n" //removeFromCart()
-                         + "4. Play a Media" //playMediaMenu()
-                         + "5. Place order\n" //placeOrder()
+                         + "1. Filter Media in cart\n" // filterCartMenu()
+                         + "2. Sort Media in cart\n" // sortCartMenu()
+                         + "3. Remove Media from cart\n" // removeFromCart()
+                         + "4. Play a Media\n" // playMediaMenu()
+                         + "5. Place order\n" // placeOrder()
                          + "0. Back\n"
                          + "--------------------------------\n"
                          + "Please choose a number: 0-1-2-3-4-5");
@@ -191,11 +186,9 @@ public class Aims {
                 showMenu();
                 break;
         }
-
     }
 
     public static void seeDetailsMenu(Media media) {
-
         if (media instanceof Playable) {
             System.out.println("\t" + media.toString());
             System.out.println("\tDate added: " + media.getDateAdded());
@@ -249,14 +242,12 @@ public class Aims {
         System.out.println("Please enter the title of the media you want to add to cart: ");
         String title = scanner.nextLine();
         Media media = store.searchMedia(title);
-        
-        //Invalid name
+        // Invalid name
         while (media == null) {
             System.out.println("Please enter a valid product name.");
             title = scanner.nextLine();
             media = store.searchMedia(title);
         }
-        
         cart.addMedia(media);
         System.out.println("Total number of media in cart: " + cart.getSize());
         System.out.println("Enter any key to continue");
@@ -267,9 +258,9 @@ public class Aims {
     public static void addToStoreMenu() {
         System.out.println("Options:\n"
                          + "--------------------------------\n"
-                         + "1. Add a new CD\n" //addMedia()g
-                         + "2. Add a new DVD\n" //addMedia()
-                         + "3. Add a new Book\n" //addMedia()
+                         + "1. Add a new CD\n" // addMedia()
+                         + "2. Add a new DVD\n" // addMedia()
+                         + "3. Add a new Book\n" // addMedia()
                          + "0. Back\n"
                          + "--------------------------------\n"
                          + "Please choose a number: 0-1-2-3");
@@ -336,17 +327,15 @@ public class Aims {
 
     public static void removeFromStoreMenu() {
 		store.print();
-		
 		System.out.println("Please enter the title of the media you want to remove: ");
 		String title = scanner.nextLine();
 		Media media = store.searchMedia(title);
-
+        // Invalid name
         while (media == null) {
 			System.out.println("Please enter a valid product name.");
 			title = scanner.nextLine();
 			media = store.searchMedia(title);
 		}
-
 		store.removeMedia(media);
 		System.out.println("Enter any key to continue");
 		scanner.nextLine();
@@ -405,16 +394,12 @@ public class Aims {
         switch (choice) {
             case 1:
                 cart.sortByTitle();
-                System.out.println("Your cart has been sorted by title\n");
-                cart.print();
                 System.out.println("Enter any key to continue");
                 scanner.nextLine();
                 cartMenu();
                 break;
             case 2:
                 cart.sortByCost();
-                System.out.println("Your cart has been sorted by cost\n");
-                cart.print();
                 System.out.println("Enter any key to continue");
                 scanner.nextLine();
                 cartMenu();
@@ -431,13 +416,12 @@ public class Aims {
         System.out.println("Please enter the title of the media you want to remove: ");
         String title = scanner.nextLine();
         Media media = store.searchMedia(title);
-
+        // Invalid name
         while (media == null) {
             System.out.println("Please enter a valid product name.");
             title = scanner.nextLine();
             media = cart.searchMedia(title);
         }
-
         cart.removeMedia(media);
         System.out.println("Media removed. Enter any key to continue");
         scanner.nextLine();
@@ -452,11 +436,12 @@ public class Aims {
             cart.print();
             Media luckyItem = cart.getALuckyItem();
             if (luckyItem != null) {
-                System.out.println("(!) A lucky item: " + luckyItem.toString());
-                System.out.println("New total price: " + (cart.totalCost() - luckyItem.getCost()));
+                System.out.println("\t" + "(!) A lucky item:\n\n" + 
+                                   "\t" + luckyItem.toString() + "\n\n" +
+                                   "\t" + "New total cost: $" + (cart.totalCost() - luckyItem.getCost()) + "\n\n" +
+                                   "\t" + "Your order has been created.");
             }
             cart = new Cart();
-            System.out.println("Your order has been placed\n");
             showMenu();
         }
     }
@@ -470,16 +455,16 @@ public class Aims {
         if (o instanceof Cart) {
             Cart o_cart = (Cart) o;
             media = o_cart.searchMedia(title);
+            // Invalid name
             while (media == null) {
                 System.out.println("Please enter a valid product name.");
                 title = scanner.nextLine();
                 media = o_cart.searchMedia(title);
             }
-
         } else if (o instanceof Store) {
             Store o_store = (Store) o;
             media = o_store.searchMedia(title);
-
+            // Invalid name
             while (media == null) {
                 System.out.println("Please enter a valid product name.");
                 title = scanner.nextLine();
@@ -497,7 +482,6 @@ public class Aims {
 
         System.out.println("Enter any key to continue");
 		scanner.nextLine();
-
     }
 
     private static int getChoice(int max) {

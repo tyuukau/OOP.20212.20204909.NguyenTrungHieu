@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import hust.soict.dsai.aims.media.*;
 
 public class Store {
+
     private ArrayList<Media> itemsInStore = new ArrayList<Media>();
 
 	public void addMedia(Media media) {
@@ -24,27 +25,22 @@ public class Store {
 		}
 	}
 
-	public void print() {
-		System.out.println("\n");
-		System.out.println("*************AVAILABLE MEDIA IN STORE**************");
-		for (int i = 0; i < itemsInStore.size(); i++) {
-			System.out.println(Integer.toString(i+1) + "." + "\t" + this.itemsInStore.get(i).toString());
-		}
-		System.out.println("***************************************************");
-		System.out.println("\n");
-	}
-	
-	// public ArrayList<Media> getItemsInStore() {
-	// 	return this.itemsInStore;
-	// }
-
 	public Media searchMedia(String title) {
 		for (Media medium : this.itemsInStore) {
-			if (medium.getTitle().toLowerCase().equals(title.toLowerCase())) {
+			if (medium.getTitle().equalsIgnoreCase(title)) {
 				return medium;
 			}
 		}
 		return null;
+	}
+
+	public void print() {
+		System.out.println("********STORE*************************************");
+		for (int i = 0; i < itemsInStore.size(); i++) {
+			System.out.println(Integer.toString(i + 1) + "." + "\t" + this.itemsInStore.get(i).toString());
+		}
+		System.out.println("**************************************************");
+		System.out.println("\n");
 	}
 
 }

@@ -17,7 +17,7 @@ public class DigitalVideoDisc extends Disc {
                              "\tTitle: %s\n" +
                              "\tCategory: %s\n" +
                              "\tDirector: %s\n" +
-                             "\tLength: %s"
+                             "\tLength: %s\n"
                              ,
                              this.getCost(),
                              this.getTitle(), 

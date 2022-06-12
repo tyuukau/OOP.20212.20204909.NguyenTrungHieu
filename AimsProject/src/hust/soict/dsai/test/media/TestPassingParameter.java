@@ -1,4 +1,4 @@
-package hust.soict.dsai.test.disc;
+package hust.soict.dsai.test.media;
 
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 

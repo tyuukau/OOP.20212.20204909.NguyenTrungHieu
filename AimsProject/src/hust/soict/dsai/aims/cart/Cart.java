@@ -28,7 +28,7 @@ public class Cart {
 
     public int addMedia(Media ... mediaList) {
         int numberOfAddedMedia = 0;
-        for (Media media: mediaList) {
+        for (Media media : mediaList) {
 			if (this.itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
 				System.out.println("The cart is already full.%n");
 				break;
@@ -40,25 +40,6 @@ public class Cart {
 				System.out.printf("%d media, '%s', has been added to the cart.%n", numberOfAddedMedia, media.getTitle());
 			}
 		}
-        System.out.printf("In total, %d media(s) have been added to the cart.%n", numberOfAddedMedia);
-        return numberOfAddedMedia;
-    }
-
-    public int addMedia(Media media1, Media media2) {
-        int numberOfAddedMedia = 0;
-        Media[] mediaList = {media1, media2};
-        for (Media media: mediaList) {
-			if (this.itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
-				System.out.println("The cart is already full.%n");
-				break;
-			} else if (this.itemsOrdered.contains(media)) {
-				System.out.printf("'%s' is already in the cart. No media was added.%n", media.getTitle());
-			} else {
-				this.itemsOrdered.add(media);
-				numberOfAddedMedia += 1;
-				System.out.printf("%d media, '%s', has been added to the cart.%n", numberOfAddedMedia, media.getTitle());
-			}
-        }
         System.out.printf("In total, %d media(s) have been added to the cart.%n", numberOfAddedMedia);
         return numberOfAddedMedia;
     }
@@ -93,7 +74,7 @@ public class Cart {
 		boolean found = false;
 		int qty = 0;
 		float cost = 0f;
-		System.out.println("\n******************SEARCH RESULT********************");
+		System.out.println("********SEARCH RESULT*****************************");
 		System.out.println("Product ID: " + id);
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
 			if (this.itemsOrdered.get(i).getID() == id) {
@@ -106,12 +87,12 @@ public class Cart {
 		if (found) {
 			System.out.println("Total number of product " + id + " found: " + qty);
 			System.out.println("Total cost for these product: " + "$" + (cost*qty));
-			System.out.println("***************************************************");
+			System.out.println("**************************************************");
 			System.out.println("\n");
 			return true;
 		} else {
 			System.out.println("No such product was found.");
-			System.out.println("***************************************************");
+			System.out.println("**************************************************");
 			System.out.println("\n");
 			return false;
 		}
@@ -119,7 +100,7 @@ public class Cart {
 
 	public boolean searchByTitle(String title) {
 		boolean found = false;
-		System.out.println("\n******************SEARCH RESULT********************");
+		System.out.println("********SEARCH RESULT*****************************");
 		System.out.println("Product Title: " + title);
         for (Media media : this.itemsOrdered) {
             if (media.isMatch(title)) {
@@ -129,36 +110,36 @@ public class Cart {
         }
 		if  (!found) {
 			System.out.println("No such product was found.");
-			System.out.println("***************************************************");
+			System.out.println("**************************************************");
 			System.out.println("\n");
             return false;
 		} else {
-            System.out.println("***************************************************");
+            System.out.println("**************************************************");
 			return true;
 		}
 	}
 
     public void sortByTitle() {
         Collections.sort(this.itemsOrdered, Media.COMPARE_BY_TITLE_COST);
-		System.out.println("\n***********************CART***********************");
+		System.out.println("********CART**************************************");
 		System.out.println("Ordered Items  (Sorted by Title):");
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
 			System.out.println(Integer.toString(i+1) + ".\t" + this.itemsOrdered.get(i).toString());
 		}
 		System.out.println("Total cost: " + "$" + this.totalCost());
-		System.out.println("***************************************************");
+		System.out.println("**************************************************");
 		System.out.println("\n");
     }
 
     public void sortByCost() {
         Collections.sort(this.itemsOrdered, Media.COMPARE_BY_COST_TITLE);
-		System.out.println("\n***********************CART***********************");
+		System.out.println("********CART**************************************");
 		System.out.println("Ordered Items  (Sorted by Cost):");
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
 			System.out.println(Integer.toString(i+1) + ".\t" + this.itemsOrdered.get(i).toString());
 		}
 		System.out.println("Total cost: " + "$" + this.totalCost());
-		System.out.println("***************************************************");
+		System.out.println("**************************************************");
 		System.out.println("\n");
     }
 
@@ -166,7 +147,7 @@ public class Cart {
 		boolean found = false;
 		int qty = 0;
 		float cost = 0f;
-		System.out.println("\n******************SEARCH RESULT********************");
+		System.out.println("********SEARCH RESULT*****************************");
 		System.out.println("Product ID: " + id);
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
 			if (this.itemsOrdered.get(i).getID() == id) {
@@ -179,12 +160,12 @@ public class Cart {
 		if (found) {
 			System.out.println("Total number of product " + id + " found: " + qty);
 			System.out.println("Total cost for these product: " + "$" + (cost*qty));
-			System.out.println("***************************************************");
+			System.out.println("**************************************************");
 			System.out.println("\n");
 			return true;
 		} else {
 			System.out.println("No such product was found.");
-			System.out.println("***************************************************");
+			System.out.println("**************************************************");
 			System.out.println("\n");
 			return false;
 		}
@@ -194,7 +175,7 @@ public class Cart {
 		boolean found = false;
 		int qty = 0;
 		float cost = 0f;
-		System.out.println("\n******************SEARCH RESULT********************");
+		System.out.println("********SEARCH RESULT*****************************");
 		System.out.println("Product title: " + title);
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
 			if (this.itemsOrdered.get(i).isMatch(title)) {
@@ -207,12 +188,12 @@ public class Cart {
 		if (found) {
 			System.out.println("Total number of product " + title + " found: " + qty);
 			System.out.println("Total cost for these product: " + "$" + (cost*qty));
-			System.out.println("***************************************************");
+			System.out.println("**************************************************");
 			System.out.println("\n");
 			return true;
 		} else {
 			System.out.println("No such product was found.");
-			System.out.println("***************************************************");
+			System.out.println("**************************************************");
 			System.out.println("\n");
 			return false;
 		}
@@ -241,15 +222,14 @@ public class Cart {
 	}
 
     public void print() {
-
         Collections.sort(this.itemsOrdered, Media.COMPARE_BY_TITLE_COST);
-		System.out.println("\n***********************CART***********************");
+		System.out.println("********CART**************************************");
 		System.out.println("Ordered Items:");
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
 			System.out.println(Integer.toString(i+1) + ".\t" + this.itemsOrdered.get(i).toString());
 		}
 		System.out.println("Total cost: " + "$" + this.totalCost());
-		System.out.println("***************************************************");
+		System.out.println("**************************************************");
 		System.out.println("\n");
     }
 
