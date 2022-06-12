@@ -90,7 +90,7 @@ public class Aims {
                          + "1. See a Media's details\n" // seeDetailsMenu()                  
                          + "2. Add a Media to cart\n" // addToCart()                
                          + "3. See current cart\n" // cartMenu()
-                         + "4. Play a Media\n" // playMediaMenu() 
+                         + "4. Play a Media\n" // playMedia() 
                          + "0. Back\n"+ "--------------------------------\n"
                          + "Please choose a number: 0-1-2-3-4");
 		
@@ -116,7 +116,7 @@ public class Aims {
                 cartMenu();
                 break;
             case 4:
-                playMediaMenu(store);
+                playMedia(store);
                 storeMenu();
             case 0:
                 showMenu();
@@ -128,7 +128,7 @@ public class Aims {
         System.out.println("Options: \n"
 		                 + "--------------------------------\n"
 		                 + "1. Add media to the store\n" // addToStoreMenu()
-		                 + "2. Remove media from the store\n" // removeFromStoreMenu()
+		                 + "2. Remove media from the store\n" // removeFromStore()
 		                 + "0. Exit\n"
                          + "--------------------------------\n"
                          + "Please choose a number: 0-1-2\n");
@@ -140,7 +140,7 @@ public class Aims {
                 addToStoreMenu();
                 break;
             case 2:
-                removeFromStoreMenu();
+                removeFromStore();
                 break;
             case 0:
                 showMenu();
@@ -158,7 +158,7 @@ public class Aims {
                          + "1. Filter Media in cart\n" // filterCartMenu()
                          + "2. Sort Media in cart\n" // sortCartMenu()
                          + "3. Remove Media from cart\n" // removeFromCart()
-                         + "4. Play a Media\n" // playMediaMenu()
+                         + "4. Play a Media\n" // playMedia()
                          + "5. Place order\n" // placeOrder()
                          + "0. Back\n"
                          + "--------------------------------\n"
@@ -177,7 +177,7 @@ public class Aims {
                 removeFromCart();
                 break;
             case 4:
-                playMediaMenu(cart);
+                playMedia(cart);
                 break;
             case 5:
                 placeOrder();
@@ -325,7 +325,7 @@ public class Aims {
         }
     }
 
-    public static void removeFromStoreMenu() {
+    public static void removeFromStore() {
 		store.print();
 		System.out.println("Please enter the title of the media you want to remove: ");
 		String title = scanner.nextLine();
@@ -446,7 +446,7 @@ public class Aims {
         }
     }
 
-    public static void playMediaMenu(Object o) {
+    public static void playMedia(Object o) {
         System.out.println("Please enter the title of the media you want to play: ");
 		String title = scanner.nextLine();
 

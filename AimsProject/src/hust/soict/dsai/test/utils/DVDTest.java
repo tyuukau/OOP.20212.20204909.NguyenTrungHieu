@@ -6,6 +6,7 @@ import hust.soict.dsai.aims.utils.DVDUtils;
 public class DVDTest {
 
 	public static void main(String[] args) {
+		
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("AAAA", "aaaa", "aaaa", 1, 5.6f);
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("BBBB", "bbbb", "bbbb", 2, 5.3f);
 		DigitalVideoDisc dvd3 = new DigitalVideoDisc("CCCC", "cccc", "cccc", 3, 5f);
@@ -18,7 +19,6 @@ public class DVDTest {
         System.out.println(DVDUtils.compareByTitle(dvd1, dvd5));
         System.out.println(DVDUtils.compareByTitle(dvd4, dvd4));
         System.out.println(DVDUtils.compareByTitle(dvd4, dvd3));
-
 		
 		DigitalVideoDisc [] list_dvd = {dvd1, dvd2, dvd3, dvd4, dvd5};
 		DigitalVideoDisc [] sorted = DVDUtils.sortByCost(list_dvd);

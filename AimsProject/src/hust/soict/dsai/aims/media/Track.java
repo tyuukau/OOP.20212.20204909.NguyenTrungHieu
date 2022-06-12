@@ -14,16 +14,25 @@ public class Track implements Playable {
 		}
     }  
 	
+	public String toString() {
+		return (this.getTitle() + ", Length: " + this.getLength());
+	}
+
+	public boolean equals(Object track) {
+		if (track instanceof Track) {
+			Track that = (Track) track;
+			return (this.title.equalsIgnoreCase(that.getTitle()) && this.length == that.length);
+		} else {
+			return false;
+		}
+	}
+
 	public String getTitle() {
 		return title;
 	}
 
 	public int getLength() {
 		return length;
-	}
-
-	public String toString() {
-		return (this.getTitle() + ", Length: " + this.getLength());
 	}
 
     public Track(String title) {
@@ -35,15 +44,6 @@ public class Track implements Playable {
 		super();
 		this.title = title;
 		this.length = length;
-	}
-
-	public boolean equals(Object track) {
-		if (track instanceof Track) {
-			Track that = (Track) track;
-			return (this.title.equalsIgnoreCase(that.getTitle()) && this.length == that.length);
-		} else {
-			return false;
-		}
 	}
 	
 }

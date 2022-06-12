@@ -1,0 +1,6 @@
+Question 1:
+- Create an ArrayList of Media, then add some media (CD, DVD, or Book) to the list.
+- Iterate through the list and print out the information of the media by using the toString() method.
+Observe what happens and explain it in detail.
+
+As we iterate through the list, the objects are printed out exactly according to its concrete implementation of the toString() method.

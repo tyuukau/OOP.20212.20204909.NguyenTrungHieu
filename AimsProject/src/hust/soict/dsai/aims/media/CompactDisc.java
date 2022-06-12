@@ -42,7 +42,7 @@ public class CompactDisc extends Disc {
 							 "\tArtist: %s\n" +
                              "\tLength: %s\n" +
 							 "\tTrack:\n" +
-							 "%s"
+							 "%s\n"
                              ,
                              this.getCost(),
                              this.getTitle(), 

@@ -5,6 +5,7 @@ import hust.soict.dsai.aims.media.Book;
 public class BookTest {
 
     public static void main(String[] args) {
+        
         Book book = new Book("Harry Potter", "Fantasy", 30.00f);
 
         book.addAuthor("Rowling");

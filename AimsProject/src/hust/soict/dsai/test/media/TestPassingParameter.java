@@ -3,6 +3,7 @@ package hust.soict.dsai.test.media;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 
 public class TestPassingParameter {
+
     public static void main(String[] args) {
 
         DigitalVideoDisc jungleDVD = new DigitalVideoDisc("Jungle");
@@ -36,6 +37,7 @@ public class TestPassingParameter {
 		w1.disc = w2.disc;
 		w2.disc = temp;
 	}
+
 }
 
 class DigitalVideoDiscWrapper {

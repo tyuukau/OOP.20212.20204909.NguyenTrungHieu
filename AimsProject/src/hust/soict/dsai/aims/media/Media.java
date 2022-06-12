@@ -16,6 +16,42 @@ public abstract class Media implements Comparable<Media> {
     public final static Comparator<Media> COMPARE_BY_TITLE_COST = new MediaComparatorTitleCost();
     public final static Comparator<Media> COMPARE_BY_COST_TITLE = new MediaComparatorCostTitle();
 
+    public boolean isMatch(String title) {
+        boolean check = false;
+        String[] words = title.split("\\s+");
+        for (int i = 0; i < words.length; i++) {
+            // You may want to check for a non-word character before blindly
+            // performing a replacement
+            // It may also be necessary to adjust the character class
+            words[i] = words[i].toLowerCase().replaceAll("[^\\w]", "");
+        }
+        String thisTitle = this.getTitle().toLowerCase();
+        for (String word : words) {
+            if (thisTitle.contains(word)) {
+                check = true;
+                break;
+            }
+        }
+        return check;
+    }
+
+    public int compareTo(Media other) {
+        int titleCondition = this.getTitle().compareToIgnoreCase(other.getTitle());
+        int categoryCondition = this.getCategory().compareToIgnoreCase(other.getTitle());
+        return titleCondition != 0 ? titleCondition : categoryCondition;
+    }
+
+    public abstract String toString();
+
+	public boolean equals(Object media) {
+		if (media instanceof Media) {
+			Media that = (Media) media;
+			return (this.id == that.id);
+		} else {
+			return false;
+		}
+	}
+
     public String getTitle() {
         return this.title;
     }
@@ -62,41 +98,5 @@ public abstract class Media implements Comparable<Media> {
 		nbMedia += 1;
         this.dateAdded = LocalDate.now();
 	}
-
-    public abstract String toString();
-
-    public boolean isMatch(String title) {
-        boolean check = false;
-        String[] words = title.split("\\s+");
-        for (int i = 0; i < words.length; i++) {
-            // You may want to check for a non-word character before blindly
-            // performing a replacement
-            // It may also be necessary to adjust the character class
-            words[i] = words[i].toLowerCase().replaceAll("[^\\w]", "");
-        }
-        String thisTitle = this.getTitle().toLowerCase();
-        for (String word : words) {
-            if (thisTitle.contains(word)) {
-                check = true;
-                break;
-            }
-        }
-        return check;
-    }
-
-	public boolean equals(Object media) {
-		if (media instanceof Media) {
-			Media that = (Media) media;
-			return (this.id == that.id);
-		} else {
-			return false;
-		}
-	}
-
-    public int compareTo(Media other) {
-        int titleCondition = this.getTitle().compareToIgnoreCase(other.getTitle());
-        int categoryCondition = this.getCategory().compareToIgnoreCase(other.getTitle());
-        return titleCondition != 0 ? titleCondition : categoryCondition;
-    }
 	
 }
