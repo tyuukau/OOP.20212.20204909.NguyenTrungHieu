@@ -43,4 +43,9 @@ public class Store {
 		System.out.println("\n");
 	}
 
+
+	public ArrayList<Media> getItemsInStore() {
+		return this.itemsInStore;
+	}
+
 }
