@@ -58,7 +58,7 @@ public class LoginScreen extends JFrame {
         JRadioButton customerBtn = new JRadioButton("Customer"); 
         JRadioButton managerBtn = new JRadioButton("Store Manager"); 
         customerBtn.setBounds(140,40,120,30); 
-        managerBtn.setBounds(140,90,120,30); 
+        managerBtn.setBounds(140,90,200,30); 
         
         ButtonGroup bg = new ButtonGroup(); 
         bg.add(customerBtn); 
