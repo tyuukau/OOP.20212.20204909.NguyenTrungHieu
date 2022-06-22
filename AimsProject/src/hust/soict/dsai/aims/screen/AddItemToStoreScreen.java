@@ -3,37 +3,33 @@ package hust.soict.dsai.aims.screen;
 import java.awt.*;
 import javax.swing.*;
 
-import java.util.ArrayList;
-
-import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
 
-public class StoreManagerScreen extends JFrame {
+public abstract class AddItemToStoreScreen extends JFrame {
 
-	private Store store;
+	Store store;
 	
-	public StoreManagerScreen(Store store) {
+	public AddItemToStoreScreen(Store store) {
+        
 		this.store = store;
-
-		store.print();
-
+		
         Container cp = getContentPane();
 		cp.setLayout(new BorderLayout());
 		
 		cp.add(createNorth(), BorderLayout.NORTH);
-		cp.add(createCenter(), BorderLayout.CENTER);
+		cp.add(createWest(), BorderLayout.CENTER);
 		
 		setTitle("Store");
-		setSize(1024,768);
+		setSize(450, 300);
 		setLocationRelativeTo(null);
         setVisible(true);
+
 	}
-	
+
 	JPanel createNorth() {
 		JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
 		north.add(createMenuBar());
-		north.add(createHeader());
 		return north;
 	}
 	
@@ -44,19 +40,19 @@ public class StoreManagerScreen extends JFrame {
 
 		JMenuItem addBook = new JMenuItem("Add Book");
 		addBook.addActionListener(e -> {
-			new AddBookToStoreScreen(this.store);
+			new AddBookToStoreScreen(store);
 			dispose();
 		});
 		JMenuItem addCD = new JMenuItem("Add CD");
 		addCD.addActionListener(e -> {
-			new AddCDToStoreScreen(this.store);
+			new AddCDToStoreScreen(store);
 			dispose();
 		});		JMenuItem addDVD = new JMenuItem("Add DVD");
 		addDVD.addActionListener(e -> {
-			new AddDVDToStoreScreen(this.store);
+			new AddDVDToStoreScreen(store);
 			dispose();
 		});
-
+		
         updateStore.add(addBook);
         updateStore.add(addDVD);
 		updateStore.add(addCD);
@@ -83,34 +79,7 @@ public class StoreManagerScreen extends JFrame {
 		
 		return menuBar;
 	}
-	
-	JPanel createHeader() {
-		JPanel header = new JPanel();
-		header.setLayout(new BoxLayout(header, BoxLayout.X_AXIS));
-		
-		JLabel title = new JLabel("AIMS");
-		title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 50));
-		title.setForeground(Color.CYAN);
-				
-		header.add(Box.createRigidArea(new Dimension(10,10)));
-		header.add(title);
-		header.add(Box.createHorizontalGlue());
-		header.add(Box.createRigidArea(new Dimension(10,10)));
-		
-		return header;
-	}
 
-    JPanel createCenter() {
-		JPanel center = new JPanel();
-		center.setLayout(new GridLayout(3,3,2,2));
-		
-		ArrayList<Media> mediaInStore = store.getItemsInStore();
-		for (Media media: mediaInStore) {
-			MediaStore cell = new MediaStore(media);
-			center.add(cell);
-		}
-		
-		return center;
-	}	
+    abstract JPanel createWest();
 
 }

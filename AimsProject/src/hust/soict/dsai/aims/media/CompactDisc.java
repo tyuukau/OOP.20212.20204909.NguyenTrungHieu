@@ -8,12 +8,16 @@ public class CompactDisc extends Disc {
     private String artist;
 	private List<Track> tracks = new ArrayList<Track>();
 
-    public void play() {
+    public boolean play() {
         System.out.println("Playing CD: " + this.getTitle());
         System.out.println("DVD length: " + this.getLength());
+		int count = 0;
         for (Track track : this.tracks) {
-            track.play();
+            if (!track.play()) {
+				count += 1;
+			}
         }
+		return (!(count == this.tracks.size()));
     }  
 
 	public void addTrack(Track track) {

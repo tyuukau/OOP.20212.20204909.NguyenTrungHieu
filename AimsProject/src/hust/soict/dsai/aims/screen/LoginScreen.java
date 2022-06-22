@@ -2,8 +2,6 @@ package hust.soict.dsai.aims.screen;
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
@@ -69,13 +67,10 @@ public class LoginScreen extends JFrame {
         
         JButton loginBtn = new JButton( "Login"); 
         loginBtn.setBounds (140,140,120,30); 
-        loginBtn.addActionListener(new ActionListener() { 
-            @Override 
-            public void actionPerformed(ActionEvent e) { 
-                if (managerBtn.isSelected()) { 
-                    new StoreManagerScreen(store);
-                    dispose(); 
-                }
+        loginBtn.addActionListener(e -> { 
+            if (managerBtn.isSelected()) { 
+                new StoreManagerScreen(store);
+                dispose(); 
             }
         });
         
