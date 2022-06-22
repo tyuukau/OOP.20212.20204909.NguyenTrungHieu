@@ -15,7 +15,7 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
         setTitle("Add Book to Store");
     }
 
-    JPanel createWest() {
+    JPanel createBody() {
         JPanel west = new JPanel();	
         west.setLayout(new GridLayout(0, 2, 4, 4));
 

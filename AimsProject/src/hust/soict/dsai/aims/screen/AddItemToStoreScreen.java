@@ -17,7 +17,7 @@ public abstract class AddItemToStoreScreen extends JFrame {
 		cp.setLayout(new BorderLayout());
 		
 		cp.add(createNorth(), BorderLayout.NORTH);
-		cp.add(createWest(), BorderLayout.CENTER);
+		cp.add(createBody(), BorderLayout.CENTER);
 		
 		setTitle("Store");
 		setSize(450, 300);
@@ -80,6 +80,6 @@ public abstract class AddItemToStoreScreen extends JFrame {
 		return menuBar;
 	}
 
-    abstract JPanel createWest();
+    abstract JPanel createBody();
 
 }

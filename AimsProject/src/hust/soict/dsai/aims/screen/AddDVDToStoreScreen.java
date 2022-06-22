@@ -13,7 +13,7 @@ public class AddDVDToStoreScreen extends AddItemToStoreScreen {
         setTitle("Add DVD to Store");
     }
 
-    JPanel createWest() {
+    JPanel createBody() {
         JPanel west = new JPanel();	
         west.setLayout(new GridLayout(0, 2, 4, 4));
 
