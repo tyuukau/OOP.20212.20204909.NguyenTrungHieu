@@ -78,7 +78,7 @@ public class Cart {
 		System.out.println("********SEARCH RESULT*****************************");
 		System.out.println("Product ID: " + id);
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
-			if (this.itemsOrdered.get(i).getID() == id) {
+			if (this.itemsOrdered.get(i).getId() == id) {
 				System.out.println(Integer.toString(i+1) + ".\t" + this.itemsOrdered.get(i).toString() + "\n");
 				qty += 1;
 				cost = this.itemsOrdered.get(i).getCost();
@@ -151,7 +151,7 @@ public class Cart {
 		System.out.println("********SEARCH RESULT*****************************");
 		System.out.println("Product ID: " + id);
 		for (int i = 0; i < this.itemsOrdered.size(); i++) {
-			if (this.itemsOrdered.get(i).getID() == id) {
+			if (this.itemsOrdered.get(i).getId() == id) {
 				System.out.println(Integer.toString(i+1) + ".\t" + this.itemsOrdered.get(i).toString() + "\n");
 				qty += 1;
 				cost = this.itemsOrdered.get(i).getCost();

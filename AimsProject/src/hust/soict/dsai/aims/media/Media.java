@@ -68,7 +68,7 @@ public abstract class Media implements Comparable<Media> {
         return this.dateAdded;
     }
 
-    public int getID() {
+    public int getId() {
         return this.id;
     }
 
