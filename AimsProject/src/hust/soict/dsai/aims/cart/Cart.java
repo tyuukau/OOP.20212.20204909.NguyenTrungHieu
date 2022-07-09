@@ -1,16 +1,17 @@
 package hust.soict.dsai.aims.cart;
 
 import hust.soict.dsai.aims.media.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.ArrayList;
 import java.util.Collections;
 
 public class Cart {
 
     public static final int MAX_NUMBERS_ORDERED = 20;
 
-    private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
+    private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 
     public int addMedia(Media media) {
         int numberOfAddedMedia = 0;
@@ -232,5 +233,9 @@ public class Cart {
 		System.out.println("**************************************************");
 		System.out.println("\n");
     }
+
+	public ObservableList<Media> getItemsOrdered() {
+		return this.itemsOrdered;
+	}
 
 }
