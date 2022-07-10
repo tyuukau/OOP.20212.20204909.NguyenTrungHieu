@@ -2,26 +2,27 @@ package hust.soict.dsai.aims.store;
 
 import java.util.ArrayList;
 
+import hust.soict.dsai.aims.exception.*;
 import hust.soict.dsai.aims.media.*;
 
 public class Store {
 
     private ArrayList<Media> itemsInStore = new ArrayList<Media>();
 
-	public void addMedia(Media media) {
+	public void addMedia(Media media) throws IllegalItemException {
 		if (this.itemsInStore.contains(media)) {
-			System.out.println(media.getTitle() + " is already in the store.");
+			throw new IllegalItemException(media.getTitle() + " is already in the store.");
 		} else {
 			this.itemsInStore.add(media);
 			System.out.println(media.getTitle() + " has been added to the store.");
 		}
 	}
 	
-	public void removeMedia(Media media) {
+	public void removeMedia(Media media) throws IllegalItemException {
 		if (this.itemsInStore.remove(media)) {
 			System.out.println(media.getTitle() + " has been removed from the store.");
 		} else {
-			System.out.println(media.getTitle() + " was not found in the store.");;
+			throw new IllegalItemException(media.getTitle() + " was not found in the store.");
 		}
 	}
 

@@ -3,35 +3,40 @@ package hust.soict.dsai.aims.media;
 import java.util.ArrayList;
 import java.util.List;
 
+import hust.soict.dsai.aims.exception.*;
+
 public class CompactDisc extends Disc {
     
     private String artist;
 	private List<Track> tracks = new ArrayList<Track>();
 
-    public boolean play() {
+    public void play() throws PlayerException {
         System.out.println("Playing CD: " + this.getTitle());
-        System.out.println("DVD length: " + this.getLength());
-		int count = 0;
-        for (Track track : this.tracks) {
-            if (!track.play()) {
-				count += 1;
+		if (this.getLength() <= 0) {
+			throw new PlayerException("Cannot play CD: " + this.getTitle() + ". Length is less than 0.");
+		} else {
+			for (Track track : this.tracks) {
+				try {
+					track.play();
+				} catch (PlayerException e) {
+					throw e;
+				}
 			}
-        }
-		return (!(count == this.tracks.size()));
+		}
     }  
 
-	public void addTrack(Track track) {
+	public void addTrack(Track track) throws IllegalItemException {
 		if (this.tracks.contains(track)) {
-			System.out.println("The track " + track.getTitle() + " is already in the tracklist of " + this.getTitle());
+			throw new IllegalItemException("The track " + track.getTitle() + " is already in the tracklist of " + this.getTitle());
 		} else {
 			this.tracks.add(track);
 			System.out.println("The track " + track.getTitle() + " has been added to the tracklist of " + this.getTitle());
 		}
 	}
 	
-	public void removeTrack(Track track) {
+	public void removeTrack(Track track) throws IllegalItemException {
 		if (this.tracks.remove(track)) {
-			System.out.println("The track " + track.getTitle() + " has been removed from the tracklist of " + this.getTitle());
+			throw new IllegalItemException("The track " + track.getTitle() + " has been removed from the tracklist of " + this.getTitle());
 		} else {
 			System.out.println("The track " + track.getTitle() + " is not in the tracklist of " + this.getTitle());
 		}

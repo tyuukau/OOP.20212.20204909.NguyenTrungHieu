@@ -1,5 +1,7 @@
 package hust.soict.dsai.aims.cart;
 
+import hust.soict.dsai.aims.exception.*;
+import hust.soict.dsai.aims.exception.IllegalItemException;
 import hust.soict.dsai.aims.media.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,12 +15,12 @@ public class Cart {
 
     private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 
-    public int addMedia(Media media) {
+    public int addMedia(Media media) throws LimitExceededException, IllegalItemException {
         int numberOfAddedMedia = 0;
         if (this.itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
-            System.out.println("The cart is already full. No media was added.%n");
+            throw new LimitExceededException("The cart is already full. No media was added.");
         } else if (this.itemsOrdered.contains(media)) {
-            System.out.printf("'%s' is already in the cart. No media was added.%n", media.getTitle());
+            throw new IllegalItemException("'" + media.getTitle() + "' is already in the cart. No media was added.");
         } else {
             this.itemsOrdered.add(media);
             numberOfAddedMedia = 1;
@@ -27,14 +29,13 @@ public class Cart {
         return numberOfAddedMedia;
     }
 
-    public int addMedia(Media ... mediaList) {
+    public int addMedia(Media ... mediaList) throws LimitExceededException, IllegalItemException {
         int numberOfAddedMedia = 0;
         for (Media media : mediaList) {
 			if (this.itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
-				System.out.println("The cart is already full.%n");
-				break;
+				throw new LimitExceededException("The cart is already full. No media was added.");
 			} else if (this.itemsOrdered.contains(media)) {
-				System.out.printf("'%s' is already in the cart. No media was added.%n", media.getTitle());
+				throw new IllegalItemException("'" + media.getTitle() + "' is already in the cart. No media was added.");
 			} else {
 				this.itemsOrdered.add(media);
 				numberOfAddedMedia += 1;
@@ -45,7 +46,7 @@ public class Cart {
         return numberOfAddedMedia;
     }
 
-    public int removeMedia(Media media) {
+    public int removeMedia(Media media) throws IllegalItemException {
         int numberOfRemovedMedia = 0;
         for (Media mediaFromCart : this.itemsOrdered) {
             if (mediaFromCart.getTitle() == media.getTitle()) {
@@ -56,7 +57,7 @@ public class Cart {
             }
         }
         if (numberOfRemovedMedia == 0) {
-            System.out.printf("The media '%s' was not found in the cart.%n", media.getTitle());
+            throw new IllegalItemException("The media '" + media.getTitle() + "' was not found in the cart.%n");
         }
         System.out.printf("In total, %d media(s) have been removed to the cart.%n", numberOfRemovedMedia);
         return numberOfRemovedMedia;

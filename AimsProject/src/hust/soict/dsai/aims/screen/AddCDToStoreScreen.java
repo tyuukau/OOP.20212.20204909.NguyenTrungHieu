@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import hust.soict.dsai.aims.exception.*;
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.Track;
 import hust.soict.dsai.aims.store.Store;
@@ -60,9 +61,18 @@ public class AddCDToStoreScreen extends AddItemToStoreScreen {
                 String trackTitle = trackInfoList.get(0).trim();
                 int trackLength = Integer.parseInt(trackInfoList.get(1));
                 Track track = new Track(trackTitle, trackLength);
-                disc.addTrack(track);
+                try {
+                    disc.addTrack(track);
+                } catch (IllegalItemException ex) {
+                    System.err.println(ex.getMessage());
+                }
             }
-            store.addMedia(disc);
+            try {
+                store.addMedia(disc);
+                JOptionPane.showMessageDialog(null, disc.getTitle() + " was added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IllegalItemException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+            }
 
         });
         west.add(confirmAdd);

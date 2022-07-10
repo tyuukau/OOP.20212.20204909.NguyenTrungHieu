@@ -3,6 +3,7 @@ package hust.soict.dsai.aims.screen;
 import javax.swing.*;
 import java.awt.*;
 
+import hust.soict.dsai.aims.exception.*;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.store.Store;
 
@@ -47,7 +48,12 @@ public class AddDVDToStoreScreen extends AddItemToStoreScreen {
             int length = Integer.parseInt(lengthField.getText());
 
             DigitalVideoDisc disc = new DigitalVideoDisc(title, category, director, length, cost);
-            store.addMedia(disc);
+            try {
+                store.addMedia(disc);
+                JOptionPane.showMessageDialog(null, disc.getTitle() + " was added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IllegalItemException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+            }
 
         });
         west.add(confirmAdd);

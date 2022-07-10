@@ -1,6 +1,7 @@
 package hust.soict.dsai.aims.screen.customer.controller;
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.*;
 import hust.soict.dsai.aims.media.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,10 +17,6 @@ public class ItemController {
     private Media media;
     private Cart cart;
 
-    public ItemController(Cart cart) {
-        this.cart = cart;
-    }
-
     @FXML
     private Label lblTitle;
 
@@ -34,30 +31,32 @@ public class ItemController {
 
     @FXML
     void btnAddToCartClicked(ActionEvent event) {
-        if (cart.addMedia(this.media) > 0) {
-            Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Cart");
+        Alert alert = new Alert(AlertType.INFORMATION);
+        try {
+            cart.addMedia(this.media);
+            alert.setTitle("Cart");
 			alert.setHeaderText("Media: " + this.media.getTitle());
 			alert.setContentText("was added to the cart.");
-			alert.showAndWait();
-        } else {
-            Alert alert = new Alert(AlertType.WARNING);
+        } catch (IllegalItemException | LimitExceededException ex) {
+            alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Cart");
-			alert.setHeaderText("Media: " + this.media.getTitle());
-			alert.setContentText("was not added to the cart. Error.");
-			alert.showAndWait();
+			alert.setHeaderText("Media: " + this.media.getTitle() + " was not added to the cart.");
+			alert.setContentText("The cart was full or the media was already in the cart.");
+        } finally {
+            alert.showAndWait();
         }
     }
 
     @FXML
     void btnPlayClicked(ActionEvent event) {
-        if (((Playable)this.media).play()) {
+        try {
+            ((Playable)media).play();
             Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Media Player");
-			alert.setHeaderText("Media: " + this.media.getTitle());
+			alert.setHeaderText("Media: " + media.getTitle());
 			alert.setContentText("Playing...");
 			alert.showAndWait();
-        } else {
+        } catch (PlayerException ex) {
             Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Media Player");
 			alert.setHeaderText("ERROR: Media length is non-positive.");
@@ -78,5 +77,8 @@ public class ItemController {
         }
     }
 
+    public ItemController(Cart cart) {
+        this.cart = cart;
+    }
 
 }

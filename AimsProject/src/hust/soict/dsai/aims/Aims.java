@@ -1,12 +1,16 @@
 package hust.soict.dsai.aims;
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.*;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
-import hust.soict.dsai.aims.memory.*;
+// import hust.soict.dsai.aims.memory.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 
 public class Aims {
@@ -15,12 +19,12 @@ public class Aims {
 	private static Store store = new Store();
     private static Cart cart = new Cart();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         // Start the MemoryDaemon
-        Thread dt = new Thread(new MemoryDaemon(), "My Daemon Thread");
-        dt.setDaemon(true);
-        dt.start();
+        // Thread dt = new Thread(new MemoryDaemon(), "My Daemon Thread");
+        // dt.setDaemon(true);
+        // dt.start();
 
 		// Add media to the store
         DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
@@ -31,28 +35,71 @@ public class Aims {
 
 		Track track1 = new Track("Bruh1", 13);
 		Track track2 = new Track("Bruh2", 21);
+		Track track3 = new Track("Bruh3", 0);
+		Track track4 = new Track("Bruh5", -100);
+
 		CompactDisc cd1 = new CompactDisc("Allstars", "Yes", "Smash Mouth", "Dunno", 69.420f);
-		cd1.addTrack(track1);
-		cd1.addTrack(track2);
+		ArrayList<Track> trackToAdd = new ArrayList<Track>();
+		Collections.addAll(trackToAdd, track1, track2);
+        for (Track track : trackToAdd) {
+            try {
+                cd1.addTrack(track);
+            } catch (IllegalItemException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
 
-		Book book1 = new Book("Sherlock Holmes", "Detective", 5f);
-		book1.addAuthor("Conan Doyle");
-		book1.addAuthor("JK Rolling");
-        book1.setProcessContent("With a wry face I went out into the hall and opened the door. To my astonishment it was Sherlock Holmes who stood upon my step.");
+		CompactDisc cd2 = new CompactDisc("Nostars", "No", "Bruh Mouth", "Dunno", 80.420f);
+        trackToAdd = new ArrayList<Track>();
+		Collections.addAll(trackToAdd, track1, track2, track3);
+        for (Track track : trackToAdd) {
+            try {
+                cd2.addTrack(track);
+            } catch (IllegalItemException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
 
-		store.addMedia(dvd1);
-		store.addMedia(dvd2);
-		store.addMedia(dvd3);
-        store.addMedia(dvd4);
-        store.addMedia(dvd5);
-		store.addMedia(cd1);
-		store.addMedia(book1);
+		CompactDisc cd3 = new CompactDisc("Whatsapp", "Uh uh", "No Mouth", "Szeczyszka", 1.420f);
+        trackToAdd = new ArrayList<Track>();
+		Collections.addAll(trackToAdd, track1, track4);
+        for (Track track : trackToAdd) {
+            try {
+                cd3.addTrack(track);
+            } catch (IllegalItemException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+
+        Book book = new Book("Harry Potter", "Fantasy", 30.00f);
+		try {
+			book.addAuthor("Rowling");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+        try {
+			book.addAuthor("Rowling");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		book.setProcessContent("There were Mr. and Mrs. Dursley of number four, Privet Drive. They were proud to say that they were perfectly normal, thank you very much.");
+
+        // Try adding Media
+		ArrayList<Media> mediaToAdd = new ArrayList<Media>();
+		Collections.addAll(mediaToAdd, dvd1, dvd2, dvd3, dvd4, dvd5, cd1, cd2, cd3, book, dvd3, dvd4, dvd5, dvd2);
+		for (Media media : mediaToAdd) {
+			try {
+				store.addMedia(media);
+			} catch (IllegalItemException ex) {
+				System.err.println(ex.getMessage());
+			}
+		}
     
         // Start program
         showMenu();
     }
 
-    public static void showMenu() {
+    public static void showMenu() throws Exception {
 		System.out.println("AIMS:\n"
                          + "--------------------------------\n"
                          + "1. View store\n" // storeMenu()
@@ -84,7 +131,7 @@ public class Aims {
         }
 	}
 
-    public static void storeMenu() {
+    public static void storeMenu() throws Exception {
 		System.out.println("Options: \n"
 		                 + "--------------------------------\n"              
                          + "1. See a Media's details\n" // seeDetailsMenu()                  
@@ -124,7 +171,7 @@ public class Aims {
         }
     }
 
-    public static void updateStoreMenu() {
+    public static void updateStoreMenu() throws Exception {
         System.out.println("Options: \n"
 		                 + "--------------------------------\n"
 		                 + "1. Add media to the store\n" // addToStoreMenu()
@@ -150,7 +197,7 @@ public class Aims {
         }
     }
 
-    public static void cartMenu() {
+    public static void cartMenu() throws Exception {
         cart.print();
 
 		System.out.println("Options:\n"
@@ -188,7 +235,7 @@ public class Aims {
         }
     }
 
-    public static void seeDetailsMenu(Media media) {
+    public static void seeDetailsMenu(Media media) throws Exception {
         if (media instanceof Playable) {
             System.out.println("\t" + media.toString());
             System.out.println("\tDate added: " + media.getDateAdded());
@@ -208,7 +255,11 @@ public class Aims {
                 scanner.nextLine();
                 storeMenu();
             } else if (choice == 2) {
-                ((Playable)media).play();
+                try {
+                    ((Playable)media).play();
+                } catch (PlayerException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+                }    
                 System.out.println("Enter any key to return");
                 scanner.nextLine();
                 seeDetailsMenu(media);
@@ -238,7 +289,7 @@ public class Aims {
         }
     }
 
-    public static void addToCart() {
+    public static void addToCart() throws Exception {
         System.out.println("Please enter the title of the media you want to add to cart: ");
         String title = scanner.nextLine();
         Media media = store.searchMedia(title);
@@ -255,7 +306,7 @@ public class Aims {
         storeMenu();
     }
 
-    public static void addToStoreMenu() {
+    public static void addToStoreMenu() throws Exception {
         System.out.println("Options:\n"
                          + "--------------------------------\n"
                          + "1. Add a new CD\n" // addMedia()
@@ -325,7 +376,7 @@ public class Aims {
         }
     }
 
-    public static void removeFromStore() {
+    public static void removeFromStore() throws Exception {
 		store.print();
 		System.out.println("Please enter the title of the media you want to remove: ");
 		String title = scanner.nextLine();
@@ -342,7 +393,7 @@ public class Aims {
 		updateStoreMenu();
     }
 
-    public static void filterCartMenu() {
+    public static void filterCartMenu() throws Exception {
         System.out.println("Options: \n"
                          + "--------------------------------\n"
 		                 + "1. Filter by ID\n"
@@ -380,7 +431,7 @@ public class Aims {
         }
     }
 
-    public static void sortCartMenu() {
+    public static void sortCartMenu() throws Exception {
 		System.out.println("Options: \n" 
                          + "--------------------------------\n"
                          + "1. Sort by title\n"
@@ -412,7 +463,7 @@ public class Aims {
         }
     }
 
-    public static void removeFromCart() {
+    public static void removeFromCart() throws Exception {
         System.out.println("Please enter the title of the media you want to remove: ");
         String title = scanner.nextLine();
         Media media = store.searchMedia(title);
@@ -428,7 +479,7 @@ public class Aims {
         cartMenu();
     }
 
-    public static void placeOrder() {
+    public static void placeOrder() throws Exception {
         if (cart.getSize() == 0) {
             System.out.println("You cannot place an empty order\n");
             cartMenu();
@@ -446,7 +497,7 @@ public class Aims {
         }
     }
 
-    public static void playMedia(Object o) {
+    public static void playMedia(Object o) throws Exception {
         System.out.println("Please enter the title of the media you want to play: ");
 		String title = scanner.nextLine();
 
@@ -475,7 +526,11 @@ public class Aims {
         if (media instanceof Playable) {
             System.out.println("\t" + media.toString());
             System.out.println("\tDate added: " + media.getDateAdded());
-            ((Playable)media).play();
+            try {
+                ((Playable)media).play();
+            } catch (PlayerException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             System.out.println("Media is found but it is not of a playable type.");
         }
@@ -484,7 +539,7 @@ public class Aims {
 		scanner.nextLine();
     }
 
-    private static int getChoice(int max) {
+    private static int getChoice(int max) throws Exception {
         Integer input = scanner.nextInt();
 		scanner.nextLine();
         ArrayList<Integer> choices = new ArrayList<Integer>();

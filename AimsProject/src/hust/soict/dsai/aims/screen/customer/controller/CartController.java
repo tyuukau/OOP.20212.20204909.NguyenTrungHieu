@@ -2,11 +2,11 @@ package hust.soict.dsai.aims.screen.customer.controller;
 
 import java.io.IOException;
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.*;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.FloatBinding;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
@@ -33,80 +33,6 @@ public class CartController {
     private Store store;
     private boolean filterByID = true;
 	private FilteredList<Media> filteredCart;
-
-    public CartController(Cart cart, Store store) {
-        this.cart = cart;
-        this.store = store;
-    }
-
-    @FXML
-    public void initialize() {
-		filteredCart = new FilteredList<Media>(this.cart.getItemsOrdered(), s -> true);
-
-        colMediaId.setCellValueFactory(new PropertyValueFactory<Media, Integer>("id"));
-        colMediaTitle.setCellValueFactory(new PropertyValueFactory<Media, String>("title"));
-        colMediaCategory.setCellValueFactory(new PropertyValueFactory<Media, String>("category"));
-        colMediaCost.setCellValueFactory(new PropertyValueFactory<Media, Float>("cost"));
-        if (cart.getItemsOrdered() != null) {
-            tblMedia.setItems(filteredCart);
-        }
-
-        btnPlay.setVisible(false); 
-        btnRemove.setVisible(false); 
-        
-        tblMedia.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Media>() {
-            @Override
-            public void changed(ObservableValue<? extends Media> observable, Media oldValue, Media newValue) {
-                updateButtonBar(newValue);
-            }
-        });
-
-		tfFilter.textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				showFilteredMedia(newValue);
-			}
-		});
-
-        FloatBinding totalCost = Bindings.createFloatBinding(() -> {
-            float total = 0.0f;
-            for (Media media : tblMedia.getItems()) {
-                total = total + media.getCost();
-            }
-            return total ;
-        }, tblMedia.getItems());
-
-        costLabel.textProperty().bind(totalCost.asString());
-        
-    }
-
-    void updateButtonBar(Media media) { 
-        if (media == null) { 
-            btnPlay.setVisible(false); 
-            btnRemove.setVisible(false);
-        } else { 
-            btnRemove.setVisible(true); 
-            if (media instanceof Playable) {
-                btnPlay.setVisible(true); 
-            } else {
-                btnPlay.setVisible(false);
-            }
-        }
-    }
-
-	private void showFilteredMedia(String filter) {
-		if (filter == null || filter.length() == 0) {
-			filteredCart.setPredicate(s -> true);
-		} else {
-			if (filterByID) {
-				try {
-					filteredCart.setPredicate(s -> s.getId() == Integer.parseInt(filter));
-				} catch (NumberFormatException e) {}
-			} else {
-				filteredCart.setPredicate(s -> s.getTitle().toLowerCase().contains(filter));
-			}
-		}
-	}
 
     @FXML
     private TextField tfFilter;
@@ -145,15 +71,84 @@ public class CartController {
     private Label costLabel;
 
     @FXML
+    public void initialize() {
+		filteredCart = new FilteredList<Media>(this.cart.getItemsOrdered(), s -> true);
+
+        colMediaId.setCellValueFactory(new PropertyValueFactory<Media, Integer>("id"));
+        colMediaTitle.setCellValueFactory(new PropertyValueFactory<Media, String>("title"));
+        colMediaCategory.setCellValueFactory(new PropertyValueFactory<Media, String>("category"));
+        colMediaCost.setCellValueFactory(new PropertyValueFactory<Media, Float>("cost"));
+
+        if (cart.getItemsOrdered() != null) {
+            tblMedia.setItems(filteredCart);
+        }
+
+        btnPlay.setVisible(false); 
+        btnRemove.setVisible(false); 
+        
+        tblMedia.getSelectionModel().selectedItemProperty().addListener(
+            (ObservableValue<? extends Media> observable, Media oldValue, Media newValue) -> {
+                updateButtonBar(newValue);
+            }
+        );
+
+        tfFilter.textProperty().addListener(
+            (ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                showFilteredMedia(newValue);
+            }
+        );
+
+        FloatBinding totalCost = Bindings.createFloatBinding(() -> {
+            float total = 0.0f;
+            for (Media media : this.cart.getItemsOrdered()) {
+                total = total + media.getCost();
+            }
+            return total ;
+        }, this.cart.getItemsOrdered());
+
+        costLabel.textProperty().bind(totalCost.asString());
+        
+    }
+
+    void updateButtonBar(Media media) { 
+        if (media == null) { 
+            btnPlay.setVisible(false); 
+            btnRemove.setVisible(false);
+        } else { 
+            btnRemove.setVisible(true); 
+            if (media instanceof Playable) {
+                btnPlay.setVisible(true); 
+            } else {
+                btnPlay.setVisible(false);
+            }
+        }
+    }
+
+	void showFilteredMedia(String filter) {
+		if (filter == null || filter.length() == 0) {
+			filteredCart.setPredicate(s -> true);
+		} else {
+			if (filterByID) {
+				try {
+					filteredCart.setPredicate(s -> s.getId() == Integer.parseInt(filter));
+				} catch (NumberFormatException e) {}
+			} else {
+				filteredCart.setPredicate(s -> s.getTitle().toLowerCase().contains(filter));
+			}
+		}
+	}
+
+    @FXML
     void btnPlayPressed(ActionEvent event) {
 		Media media = this.tblMedia.getSelectionModel().getSelectedItem();
-        if (((Playable)media).play()) {
+        try {
+            ((Playable)media).play();
             Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Media Player");
 			alert.setHeaderText("Media: " + media.getTitle());
 			alert.setContentText("Playing...");
 			alert.showAndWait();
-        } else {
+        } catch (PlayerException e) {
             Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Media Player");
 			alert.setHeaderText("ERROR: Media length is non-positive.");
@@ -165,7 +160,15 @@ public class CartController {
     @FXML
     void btnRemovePressed(ActionEvent event) {
         Media media = tblMedia.getSelectionModel().getSelectedItem();
-        cart.removeMedia(media);
+        try {
+            cart.removeMedia(media);
+        } catch (IllegalItemException e) {
+            Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Notification");
+			alert.setHeaderText("Failed to remove.");
+			alert.setContentText("The media is not in cart.");
+			alert.showAndWait();
+        }
     }
 
     @FXML
@@ -220,6 +223,11 @@ public class CartController {
 			alert.setContentText("Your cart is empty.");
 			alert.showAndWait();
 		}
+    }
+
+    public CartController(Cart cart, Store store) {
+        this.cart = cart;
+        this.store = store;
     }
 
 }

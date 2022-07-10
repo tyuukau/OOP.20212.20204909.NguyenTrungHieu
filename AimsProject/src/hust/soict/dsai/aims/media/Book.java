@@ -1,4 +1,5 @@
 package hust.soict.dsai.aims.media;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -6,30 +7,32 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.TreeMap;
 
+import hust.soict.dsai.aims.exception.*;
+
 public class Book extends Media {
 
 	private List<String> authors = new ArrayList<String>();
 
-    private String content;
+    private String content = "";
     private int contentLength;
     private List<String> contentTokens;
     private Map<String,Integer> wordFrequency;
 
-	public void addAuthor(String authorName) {
+	public void addAuthor(String authorName) throws IllegalItemException {
         if (!this.authors.stream().anyMatch(authorName::equalsIgnoreCase)) {
             this.authors.add(authorName);
             System.out.println(authorName + " has been added to the " + this.getTitle() + " list of authors.");
         } else {
-            System.out.println(authorName + " is already in the list of authors of " + this.getTitle() + ".");
+            throw new IllegalItemException(authorName + " is already in the list of authors of " + this.getTitle() + ".");
         }
 	}
 	
-	public void removeAuthor(String authorName) {
+	public void removeAuthor(String authorName) throws IllegalItemException {
         if (this.authors.stream().anyMatch(authorName::equalsIgnoreCase)) {
             this.authors.removeIf(author -> author.equalsIgnoreCase(authorName));
             System.out.println(authorName + " has been removed from the " + this.getTitle() + " list of authors.");
         } else {
-            System.out.println(authorName + " is not in the list of authors of " + this.getTitle() + ".");
+            throw new IllegalItemException(authorName + " is not in the list of authors of " + this.getTitle() + ".");
         }
 	}
 
@@ -62,9 +65,17 @@ public class Book extends Media {
     }
 
     public String toString() {
+        String content = "";
+        int contentLength = 0;
+        String contentTokens = "";
         String wordFrequencyOutput = "";
-        for (Map.Entry<String, Integer> entry : this.wordFrequency.entrySet()) {
-            wordFrequencyOutput += ("\t\t\'" + entry.getKey() + "\': " + entry.getValue() + "\n");
+        if (this.content != "") {
+            content = this.content;
+            contentLength = this.contentLength;
+            contentTokens = this.contentTokens.toString().replace("[","").replace("]","");
+            for (Map.Entry<String, Integer> entry : this.wordFrequency.entrySet()) {
+                wordFrequencyOutput += ("\t\t\'" + entry.getKey() + "\': " + entry.getValue() + "\n");
+            }    
         }
         return(String.format("[$%f]:\n" + 
                              "\tBook\n" +
@@ -80,9 +91,9 @@ public class Book extends Media {
                              this.getTitle(), 
                              this.getCategory(),
                              this.authors.toString().replace("[","").replace("]",""),
-                             this.content,
-                             this.contentLength,
-                             this.contentTokens.toString().replace("[","").replace("]",""),
+                             content,
+                             contentLength,
+                             contentTokens,
                              wordFrequencyOutput));
     }
 

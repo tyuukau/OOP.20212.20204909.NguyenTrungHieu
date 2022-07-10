@@ -1,15 +1,15 @@
 package hust.soict.dsai.aims.media;
 
+import hust.soict.dsai.aims.exception.*;
+
 public class DigitalVideoDisc extends Disc {
 
-    public boolean play() {
+    public void play() throws PlayerException {
 		if (this.getLength() > 0) {
 			System.out.println("Playing DVD: " + this.getTitle());
 			System.out.println("DVD length: " + this.getLength());
-            return true;
 		} else {
-			System.out.println("Cannot play DVD: " + this.getTitle() + ". Length is less than 0.");
-            return false;
+			throw new PlayerException("Cannot play DVD: " + this.getTitle() + ". Length is less than 0.");
 		}
     }       
 

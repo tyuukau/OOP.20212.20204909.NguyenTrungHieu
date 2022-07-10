@@ -1,7 +1,12 @@
 package hust.soict.dsai.test.screen.customer.store;
 
 import hust.soict.dsai.aims.media.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.*;
 import hust.soict.dsai.aims.store.Store;
 import hust.soict.dsai.aims.screen.customer.controller.CartController;
 import javafx.application.Application;
@@ -42,32 +47,64 @@ public class TestCartScreen extends Application {
         Track track1 = new Track("Bruh1", 13);
 		Track track2 = new Track("Bruh2", 21);
 		Track track3 = new Track("Bruh3");
+
 		CompactDisc cd1 = new CompactDisc("Allstars", "Yes", "Smash Mouth", "Dunno", 69.420f);
-		cd1.addTrack(track1);
-		cd1.addTrack(track2);
+        try {
+            cd1.addTrack(track1);
+        } catch (IllegalItemException ex) {
+            System.err.println(ex.getMessage());
+        }
+        try {
+            cd1.addTrack(track2);
+        } catch (IllegalItemException ex) {
+            System.err.println(ex.getMessage());
+        }
+		
 		CompactDisc cd2 = new CompactDisc("Allstars 2", "Yes", "Smash Mouth", "Dunno", 69.420f);
-		cd2.addTrack(track1);
-		cd2.addTrack(track3);
-		cd2.addTrack(track2);
+        try {
+            cd2.addTrack(track1);
+        } catch (IllegalItemException ex) {
+            System.err.println(ex.getMessage());
+        }
+        try {
+            cd2.addTrack(track3);
+        } catch (IllegalItemException ex) {
+            System.err.println(ex.getMessage());
+        }
+        try {
+            cd2.addTrack(track2);
+        } catch (IllegalItemException ex) {
+            System.err.println(ex.getMessage());
+        }
 
         Book book = new Book("Harry Potter", "Fantasy", 30.00f);
-        book.addAuthor("Rowling");
-        book.setProcessContent("There were Mr. and Mrs. Dursley of number four, Privet Drive. They were proud to say that they were perfectly normal, thank you very much.");
+		try {
+			book.addAuthor("Rowling");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		book.setProcessContent("There were Mr. and Mrs. Dursley of number four, Privet Drive. They were proud to say that they were perfectly normal, thank you very much.");
 
         // Try adding Media
-		store.addMedia(dvd2);
-		store.addMedia(dvd1);
-		store.addMedia(cd1);
-		store.addMedia(cd2);
-		store.addMedia(book);
-		store.addMedia(dvd3);
-		store.addMedia(dvd4);
-		store.addMedia(dvd5);
-		store.addMedia(dvd6);
+		ArrayList<Media> mediaToAdd = new ArrayList<Media>();
+		Collections.addAll(mediaToAdd, dvd1, dvd1, cd1, cd2, book, dvd3, dvd4, dvd5, dvd6, dvd2);
+		for (Media media : mediaToAdd) {
+			try {
+				store.addMedia(media);
+			} catch (IllegalItemException ex) {
+				System.err.println(ex.getMessage());
+			}
+		}
 
-		cart.addMedia(book);
-		cart.addMedia(dvd4);
-		cart.addMedia(dvd5);
+		mediaToAdd = new ArrayList<Media>();
+		Collections.addAll(mediaToAdd, dvd1, dvd1, cd1, cd2);
+		for (Media media : mediaToAdd) {
+			try {
+				cart.addMedia(media);
+			} catch (IllegalItemException | LimitExceededException ex) {
+				System.err.println(ex.getMessage());
+			}
+		}
 
         launch(args);
     }

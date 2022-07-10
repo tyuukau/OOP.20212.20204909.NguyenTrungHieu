@@ -3,14 +3,13 @@ package hust.soict.dsai.aims.screen;
 import java.awt.*;
 import javax.swing.*;
 
+import hust.soict.dsai.aims.exception.*;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
 
 public class LoginScreen extends JFrame {
     
-    private Store store;
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 		// Test
 		Store myStore = new Store();
 
@@ -34,7 +33,11 @@ public class LoginScreen extends JFrame {
 		cd2.addTrack(track2);
 
         Book book = new Book("Harry Potter", "Fantasy", 30.00f);
-        book.addAuthor("Rowling");
+        try {
+            book.addAuthor("Rowling");
+        } catch (IllegalItemException e) {
+            System.err.println(e.getMessage());
+        }
         book.setProcessContent("There were Mr. and Mrs. Dursley of number four, Privet Drive. They were proud to say that they were perfectly normal, thank you very much.");
 
         // Try adding DVDs
@@ -52,7 +55,6 @@ public class LoginScreen extends JFrame {
     }
 
     public LoginScreen(Store store) { 
-        this.store = store; 
         Container cp = getContentPane(); 
         
         JRadioButton customerBtn = new JRadioButton("Customer"); 

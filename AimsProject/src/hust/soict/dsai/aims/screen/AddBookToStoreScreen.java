@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import hust.soict.dsai.aims.exception.*;
 import hust.soict.dsai.aims.media.Book;
 import hust.soict.dsai.aims.store.Store;
 
@@ -50,10 +51,19 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
 
             Book book = new Book(title, category, cost);
             for (String authorName : authors) {
-                book.addAuthor(authorName);
+                try {
+                    book.addAuthor(authorName);
+                } catch (IllegalItemException ex) {
+                    System.err.println(ex.getMessage());
+                }
             }
             book.setProcessContent(content);
-            store.addMedia(book);
+            try {
+                store.addMedia(book);
+                JOptionPane.showMessageDialog(null, book.getTitle() + " was added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IllegalItemException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+            }
 
         });
         west.add(confirmAdd);

@@ -1,11 +1,15 @@
 package hust.soict.dsai.test.store;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+import hust.soict.dsai.aims.exception.*;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
 
 public class StoreTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// Create the store
 		Store myStore = new Store();
 
@@ -16,21 +20,35 @@ public class StoreTest {
 
 		Book book = new Book("Harry Potter", "Fantasy", 30.00f);
 
-        book.addAuthor("Rowling");
-        book.setProcessContent("There were Mr. and Mrs. Dursley of number four, Privet Drive. They were proud to say that they were perfectly normal, thank you very much.");
+		try {
+        	book.addAuthor("Rowling");
+			book.setProcessContent("There were Mr. and Mrs. Dursley of number four, Privet Drive. They were proud to say that they were perfectly normal, thank you very much.");
+		} catch (IllegalItemException ex) {
+			System.err.println(ex.getMessage());
+		}
 
 		// Add media
-		myStore.addMedia(dvd2);
-		myStore.addMedia(dvd1);
-		myStore.addMedia(dvd3);
-		myStore.addMedia(dvd1);
-		myStore.addMedia(dvd1);
-		myStore.addMedia(book);
+		ArrayList<Media> mediaToAdd = new ArrayList<Media>();
+		Collections.addAll(mediaToAdd, dvd2, dvd1, dvd3, dvd1, dvd1, book);
+		for (Media media : mediaToAdd) {
+			try {
+				myStore.addMedia(media);
+			} catch (IllegalItemException ex) {
+				System.err.println(ex.getMessage());
+			}
+		}
 		myStore.print();
 
 		// Remove media
-		myStore.removeMedia(dvd3);
-		myStore.removeMedia(dvd1);
+		ArrayList<Media> mediaToRemove = new ArrayList<Media>();
+		Collections.addAll(mediaToRemove, dvd3, dvd1);
+		for (Media media : mediaToRemove) {
+			try {
+				myStore.removeMedia(media);
+			} catch (IllegalItemException ex) {
+				System.err.println(ex.getMessage());
+			}
+		}
 		myStore.print();
 	}
 
