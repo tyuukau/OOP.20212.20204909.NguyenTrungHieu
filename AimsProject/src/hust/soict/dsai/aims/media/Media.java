@@ -36,21 +36,25 @@ public abstract class Media implements Comparable<Media> {
     }
 
     public int compareTo(Media other) {
-        int titleCondition = this.getTitle().compareToIgnoreCase(other.getTitle());
-        int categoryCondition = this.getCategory().compareToIgnoreCase(other.getTitle());
-        return titleCondition != 0 ? titleCondition : categoryCondition;
+        try {
+            int titleCondition = this.getTitle().compareToIgnoreCase(other.getTitle());
+            int categoryCondition = this.getCategory().compareToIgnoreCase(other.getCategory());
+            return titleCondition != 0 ? titleCondition : categoryCondition;
+        } catch (NullPointerException e) {
+            return 0;
+        }
     }
 
-    public abstract String toString();
-
-	public boolean equals(Object media) {
-		if (media instanceof Media) {
-			Media that = (Media) media;
-			return (this.id == that.id);
-		} else {
-			return false;
-		}
+	public boolean equals(Object other) {
+        try {
+            return (this.title.toLowerCase().equals(((Media)other).getTitle().toLowerCase()) && this.cost == ((Media)other).getCost());
+        } catch (NullPointerException | ClassCastException ex) {
+            System.err.println(ex.getMessage());
+            return false;
+        }
 	}
+
+    public abstract String toString();
 
     public String getTitle() {
         return this.title;
