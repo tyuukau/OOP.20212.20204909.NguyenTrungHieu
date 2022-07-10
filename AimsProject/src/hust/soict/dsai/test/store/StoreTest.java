@@ -9,7 +9,7 @@ import hust.soict.dsai.aims.store.Store;
 
 public class StoreTest {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		// Create the store
 		Store myStore = new Store();
 
