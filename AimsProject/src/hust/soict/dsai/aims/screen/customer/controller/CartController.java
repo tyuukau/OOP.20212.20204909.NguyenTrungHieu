@@ -1,7 +1,11 @@
 package hust.soict.dsai.aims.screen.customer.controller;
 
+import java.io.IOException;
 import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.*;
+import hust.soict.dsai.aims.store.Store;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.FloatBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
@@ -17,15 +21,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
 public class CartController {
 
     private Cart cart;
+    private Store store;
     private boolean filterByID = true;
 	private FilteredList<Media> filteredCart;
 
-    public CartController(Cart cart) {
+    public CartController(Cart cart, Store store) {
         this.cart = cart;
+        this.store = store;
     }
 
     @FXML
@@ -50,12 +61,23 @@ public class CartController {
             }
         });
 
-		tfFilter.textProperty().addListener(new ChangeListener<String> () {
+		tfFilter.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				showFilteredMedia(newValue);
 			}
 		});
+
+        FloatBinding totalCost = Bindings.createFloatBinding(() -> {
+            float total = 0.0f;
+            for (Media media : tblMedia.getItems()) {
+                total = total + media.getCost();
+            }
+            return total ;
+        }, tblMedia.getItems());
+
+        costLabel.textProperty().bind(totalCost.asString());
+        
     }
 
     void updateButtonBar(Media media) { 
@@ -64,7 +86,7 @@ public class CartController {
             btnRemove.setVisible(false);
         } else { 
             btnRemove.setVisible(true); 
-            if(media instanceof Playable) {
+            if (media instanceof Playable) {
                 btnPlay.setVisible(true); 
             } else {
                 btnPlay.setVisible(false);
@@ -148,7 +170,19 @@ public class CartController {
 
     @FXML
     void btnViewStorePressed(ActionEvent event) {
-        // todo
+        try {
+			final String STORE_FXML_FILE_PATH = "/hust/soict/dsai/aims/screen/customer/view/Store.fxml";
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(STORE_FXML_FILE_PATH));
+			fxmlLoader.setController(new StoreController(store, cart));
+			Parent root = fxmlLoader.load();
+			
+			Stage nextStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			nextStage.setScene(new Scene(root));
+			nextStage.setTitle("Store");
+			nextStage.show(); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML
@@ -159,6 +193,33 @@ public class CartController {
     @FXML
     void filterByTitleChosen(ActionEvent event) {
         filterByID = false;
+    }
+
+    @FXML
+    void placeOrderClicked(ActionEvent event) {
+        String content;
+		if (this.cart.getSize() > 0) {
+            Media luckyItem = this.cart.getALuckyItem();
+            if (luckyItem != null) {
+                content = "(!) A lucky item: " + luckyItem.toString() + "\n" +
+                          "Cost: $" + (this.cart.totalCost() - luckyItem.getCost()) + ".";
+            } else {
+                content = "Cost: $" + this.cart.totalCost() + ".";
+            }
+
+            this.cart.empty();
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Notification");
+			alert.setHeaderText("Success! Your order has been placed.");
+			alert.setContentText(content);
+			alert.showAndWait();
+        } else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Notification");
+			alert.setHeaderText("ERROR: Failed to place order.");
+			alert.setContentText("Your cart is empty.");
+			alert.showAndWait();
+		}
     }
 
 }

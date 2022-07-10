@@ -238,4 +238,8 @@ public class Cart {
 		return this.itemsOrdered;
 	}
 
+	public void empty() {
+		this.itemsOrdered.clear();
+	}
+
 }

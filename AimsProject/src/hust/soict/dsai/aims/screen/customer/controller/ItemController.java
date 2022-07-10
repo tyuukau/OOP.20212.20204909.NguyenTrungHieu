@@ -1,7 +1,7 @@
 package hust.soict.dsai.aims.screen.customer.controller;
 
-import hust.soict.dsai.aims.media.Media;
-import hust.soict.dsai.aims.media.Playable;
+import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.media.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -14,6 +14,11 @@ import javafx.scene.layout.HBox;
 public class ItemController {
 
     private Media media;
+    private Cart cart;
+
+    public ItemController(Cart cart) {
+        this.cart = cart;
+    }
 
     @FXML
     private Label lblTitle;
@@ -29,7 +34,19 @@ public class ItemController {
 
     @FXML
     void btnAddToCartClicked(ActionEvent event) {
-        // todo
+        if (cart.addMedia(this.media) > 0) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Cart");
+			alert.setHeaderText("Media: " + this.media.getTitle());
+			alert.setContentText("was added to the cart.");
+			alert.showAndWait();
+        } else {
+            Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Cart");
+			alert.setHeaderText("Media: " + this.media.getTitle());
+			alert.setContentText("was not added to the cart. Error.");
+			alert.showAndWait();
+        }
     }
 
     @FXML

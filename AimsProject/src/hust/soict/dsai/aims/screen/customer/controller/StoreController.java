@@ -1,21 +1,27 @@
 package hust.soict.dsai.aims.screen.customer.controller;
 
 import java.io.IOException;
-
+import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.store.Store;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-public class ViewStoreController {
+public class StoreController {
 
     private Store store;
+    private Cart cart;
 
-    public ViewStoreController(Store store) {
+    public StoreController(Store store, Cart cart) {
         this.store = store;
+        this.cart = cart;
     }
 
     @FXML
@@ -23,7 +29,19 @@ public class ViewStoreController {
 
     @FXML
     void btnViewCartPressed(ActionEvent event) {
-        // todo
+        try {
+			final String CART_FXML_FILE_PATH = "/hust/soict/dsai/aims/screen/customer/view/Cart.fxml";
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(CART_FXML_FILE_PATH));
+			fxmlLoader.setController(new CartController(cart, store));
+			Parent root = fxmlLoader.load();
+			
+			Stage nextStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			nextStage.setScene(new Scene(root));
+			nextStage.setTitle("Cart");
+			nextStage.show(); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML
@@ -35,7 +53,7 @@ public class ViewStoreController {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource(ITEM_FXML_FILE_PATH));
-                ItemController itemController = new ItemController();
+                ItemController itemController = new ItemController(cart);
                 fxmlLoader.setController(itemController);
                 AnchorPane anchorPane = new AnchorPane();
                 anchorPane = fxmlLoader.load();

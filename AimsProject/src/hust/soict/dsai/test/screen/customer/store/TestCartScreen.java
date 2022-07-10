@@ -2,6 +2,7 @@ package hust.soict.dsai.test.screen.customer.store;
 
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.store.Store;
 import hust.soict.dsai.aims.screen.customer.controller.CartController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +13,12 @@ import javafx.stage.Stage;
 public class TestCartScreen extends Application {
     
     private static Cart cart;
+	private static Store store;
 
     public void start(Stage primaryStage) throws Exception {
         final String STORE_FXML_FILE_PATH = "/hust/soict/dsai/aims/screen/customer/view/Cart.fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(STORE_FXML_FILE_PATH));
-        CartController cartController = new CartController(cart);
+        CartController cartController = new CartController(cart, store);
         fxmlLoader.setController(cartController);
         Parent root = fxmlLoader.load();
 
@@ -27,8 +29,9 @@ public class TestCartScreen extends Application {
 
     public static void main(String[] args) {
         cart = new Cart();
+		store = new Store();
 
-		// Create DVDs
+		// Create Media
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
 		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
@@ -51,16 +54,20 @@ public class TestCartScreen extends Application {
         book.addAuthor("Rowling");
         book.setProcessContent("There were Mr. and Mrs. Dursley of number four, Privet Drive. They were proud to say that they were perfectly normal, thank you very much.");
 
-        // Try adding DVDs
-		cart.addMedia(dvd2);
-		cart.addMedia(dvd1);
-		cart.addMedia(dvd3);
-		cart.addMedia(cd1);
-		cart.addMedia(cd2);
+        // Try adding Media
+		store.addMedia(dvd2);
+		store.addMedia(dvd1);
+		store.addMedia(cd1);
+		store.addMedia(cd2);
+		store.addMedia(book);
+		store.addMedia(dvd3);
+		store.addMedia(dvd4);
+		store.addMedia(dvd5);
+		store.addMedia(dvd6);
+
 		cart.addMedia(book);
 		cart.addMedia(dvd4);
 		cart.addMedia(dvd5);
-		cart.addMedia(dvd6);
 
         launch(args);
     }
